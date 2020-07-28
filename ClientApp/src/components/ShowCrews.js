@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import UpdateDele from "./UpdateDele";
+import Detailpage from "./DetailPage";
 
 const ShowCrews = () => {
   const [crews, setCrews] = useState([]);
@@ -16,7 +18,10 @@ const ShowCrews = () => {
   return (
     <div>
       {crews.map((crew, index) => (
-        <div key={index}>{crew.name}</div>
+        <div key={index} className="operation">
+          {crew.name}
+          <UpdateDele Id={crew.id} />
+        </div>
       ))}
     </div>
   );

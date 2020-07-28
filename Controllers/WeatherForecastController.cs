@@ -59,10 +59,20 @@ namespace AlphaSystem.Controllers
         }
 
         [HttpDelete("delete")]
-        public void Delete(Int16 id)
+        public void Delete([FromBody] Student student)
         {
             using var connection = new MySqlConnection(connectionString);
-            connection.Delete(new Student { Id = id });
+            connection.Delete(student);
+            //connection.Execute("DELETE FROM student WHERE id = @Sid", new { Sid = student.Id });
+        }
+
+        [HttpPut("update")]
+        public void Put([FromBody] Student student)
+        {
+            using var connection = new MySqlConnection(connectionString);
+            var newStudent = connection.Get<Student>(student.Id);
+
+            connection.Update(student);
         }
     }
 }
