@@ -20,7 +20,6 @@ const ShowCrews = () => {
       {crews.map((crew, index) => (
         <div key={index} className="operation">
           {crew.name}
-          <UpdateDele Id={crew.id} />
         </div>
       ))}
     </div>

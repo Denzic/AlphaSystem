@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import {
   Collapse,
   Container,
@@ -11,26 +11,19 @@ import {
 import { Link } from "react-router-dom";
 import "./NavMenu.css";
 
-export class NavMenu extends Component {
-  static displayName = NavMenu.name;
+export const NavCopy = () => {
+  const [collapsed, setCollapsed] = useState({
+    collapsed: true,
+  });
 
-  constructor(props) {
-    super(props);
-
-    this.toggleNavbar = this.toggleNavbar.bind(this);
-    this.state = {
-      collapsed: true,
-    };
-  }
-
-  toggleNavbar() {
-    this.setState({
-      collapsed: !this.state.collapsed,
+  const toggleNavbar = () => {
+    setCollapsed({
+      collapsed: !collapsed,
     });
-  }
+  };
 
-  render() {
-    return (
+  return (
+    <div>
       <header>
         <Navbar
           className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3"
@@ -40,10 +33,10 @@ export class NavMenu extends Component {
             <NavbarBrand tag={Link} to="/">
               AlphaSystem
             </NavbarBrand>
-            <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
+            <NavbarToggler onClick={toggleNavbar} className="mr-2" />
             <Collapse
               className="d-sm-inline-flex flex-sm-row-reverse"
-              isOpen={!this.state.collapsed}
+              isOpen={!collapsed}
               navbar
             >
               <ul className="navbar-nav flex-grow">
@@ -72,11 +65,16 @@ export class NavMenu extends Component {
                     Show Crews
                   </NavLink>
                 </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/TotalItems">
+                    Total Items
+                  </NavLink>
+                </NavItem>
               </ul>
             </Collapse>
           </Container>
         </Navbar>
       </header>
-    );
-  }
-}
+    </div>
+  );
+};

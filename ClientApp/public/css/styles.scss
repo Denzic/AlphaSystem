@@ -1,4 +1,15 @@
-﻿a.navbar-brand {
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,300&display=swap");
+
+html {
+  font-family: "Roboto", sans-serif;
+}
+
+h1 {
+  font-weight: lighter;
+  font-size: 2rem;
+}
+
+a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
