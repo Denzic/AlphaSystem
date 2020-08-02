@@ -8,20 +8,23 @@ import Crud from "./components/Crud"
 import TotalItems from "./components/TotalItems"
 import ShowCrews from "./components/ShowCrews"
 import AddItem from "./components/AddItem/AddItem"
-
-//import "./custom.css"
+import FormProvider from "./components/Context/FormContext"
+import EditItem from "./components/EditItem/EditItem"
 
 const App = () => {
   return (
-    <Layout>
-      <Route exact path='/' component={TotalItems} />
-      <Route path='/counter' component={Counter} />
-      <Route path='/fetch-data' component={FetchData} />
-      <Route path='/crud' component={Crud} />
-      <Route path='/showcrews' component={ShowCrews} />
-      <Route path='/TotalItems' component={TotalItems} />
-      <Route path='/AddItem' component={AddItem} />
-    </Layout>
+    <FormProvider>
+      <Layout>
+        <Route exact path='/' component={TotalItems} />
+        <Route path='/counter' component={Counter} />
+        <Route path='/fetch-data' component={FetchData} />
+        <Route path='/crud' component={Crud} />
+        <Route path='/showcrews' component={ShowCrews} />
+        <Route path='/TotalItems' component={TotalItems} />
+        <Route path='/AddItem' component={AddItem} />
+        <Route path='/EditItem' component={EditItem} />
+      </Layout>
+    </FormProvider>
   )
 }
 

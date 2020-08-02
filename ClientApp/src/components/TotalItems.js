@@ -7,6 +7,7 @@ const TotalItems = () => {
     <div>
       <h1>Total Items</h1>
       <Link to='./AddItem'>Add Item +</Link>
+      <Link to='/EditItem'>Edit Item +</Link>
       <Table>
         <thead>
           <tr>

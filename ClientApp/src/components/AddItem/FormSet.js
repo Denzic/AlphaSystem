@@ -1,15 +1,29 @@
 import React from "react"
-import { Label, Input } from "reactstrap"
+import { Label, Input, Col, Row } from "reactstrap"
+import InputGenerator from "./InputGenerator"
 
-const FormCol = ({ colNumber, rowNumber }) => {
-  switch (rowNumber) {
-    case 1:
-      console.log("")
+let count = -1
+
+const FormCol = ({ form }) => {
+  count++
+  if (count === 18) count = 0
+
+  const renderInput = () => {
+    if (form[count].type === "textarea")
+      return <Input type={form[count].type} name={form[count].name} rows='4' />
+    else if (form[count].name !== "price")
+      return <Input type={form[count].type} name={form[count].name} />
+    else return <InputGenerator currentInput={form[count]} />
   }
+
   return (
     <>
-      <Label>Device Name</Label>
-      <Input type='text' name='device_name' />
+      <Row form>
+        <Col md={5}>
+          <Label>{form[count].label}</Label>
+        </Col>
+        <Col md={7}>{renderInput()}</Col>
+      </Row>
     </>
   )
 }
