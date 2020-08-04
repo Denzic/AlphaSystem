@@ -13,18 +13,18 @@ namespace AlphaSystem.Controllers
 {
   [ApiController]
   [Route("[controller]")]
-  public class WeatherForecastController : ControllerBase
+  public class InventoryController : ControllerBase
   {
     private static readonly string[] Summaries = new[]
     {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-    private readonly ILogger<WeatherForecastController> _logger;
+    private readonly ILogger<InventoryController> _logger;
     private readonly IConfiguration _config;
-    private readonly string connectionString = "Server=localhost;Database=school;Uid=root;Password=op930917;";
+    private readonly string connectionString = "Server=localhost;Database=school;Uid=root;Password=Cf222222;";
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger, IConfiguration config)
+    public InventoryController(ILogger<InventoryController> logger, IConfiguration config)
     {
       _logger = logger;
       _config = config;

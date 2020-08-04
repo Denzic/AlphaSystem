@@ -5,97 +5,97 @@ export const FormContext = createContext()
 const FormProvider = props => {
   const [form, setForm] = useState([
     {
-      label: "Device Name:",
+      label: "Device Name",
       name: "device_name",
-      type: "text"
+      type: "text",
     },
     {
-      label: "Order Date:",
+      label: "Order Date",
       name: "order_date",
-      type: "date"
+      type: "date",
     },
     {
-      label: "Location:",
+      label: "Location",
       name: "location",
-      type: "text"
+      type: "text",
     },
     {
-      label: "Type:",
+      label: "Type",
       name: "type",
-      type: "select"
+      type: "select",
     },
     {
-      label: "Deliver Date:",
+      label: "Deliver Date",
       name: "deliver_date",
-      type: "date"
+      type: "date",
     },
     {
-      label: "For Staff:",
+      label: "For Staff",
       name: "for_staff",
-      type: "select"
+      type: "select",
     },
     {
-      label: "Brand:",
+      label: "Brand",
       name: "brand",
-      type: "text"
+      type: "text",
     },
     {
-      label: "Order URL:",
+      label: "Order URL",
       name: "order_url",
-      type: "text"
+      type: "text",
     },
     {
-      label: "Device Number:",
+      label: "Device Number",
       name: "device_number",
-      type: "text"
+      type: "text",
     },
     {
-      label: "Order Staff:",
+      label: "Order Staff",
       name: "order_staff",
-      type: "text"
+      type: "text",
     },
     {
-      label: "IP:",
+      label: "IP",
       name: "ip",
-      type: "text"
+      type: "text",
     },
     {
-      label: "Price:",
+      label: "Price",
       name: "price",
       type: ["text", "select"],
-      options: ["Jennifer", "Larry"]
+      options: ["Jennifer", "Larry"],
     },
     {
-      label: "Access Type:",
+      label: "Access Type",
       name: "access_type",
-      type: "text"
+      type: "text",
     },
     {
-      label: "Invoice Number:",
+      label: "Invoice Number",
       name: "invoice_number",
-      type: "text"
+      type: "text",
     },
     {
-      label: "Approved By:",
+      label: "Approved By",
       name: "approved_by",
       type: "select",
-      option: ["Larry", "Jeniffer"]
+      option: ["Larry", "Jeniffer"],
     },
     {
-      label: "Original Feature:",
+      label: "Original Feature",
       name: "original_feature",
-      type: "textarea"
+      type: "textarea",
     },
     {
-      label: "Order Reason:",
+      label: "Order Reason",
       name: "order_reason",
-      type: "textarea"
+      type: "textarea",
     },
     {
-      label: "Memo:",
+      label: "Memo",
       name: "memo",
-      type: "textarea"
-    }
+      type: "textarea",
+    },
   ])
 
   return (

@@ -6,7 +6,8 @@ import { FormContext } from "../Context/FormContext"
 const AddItem = () => {
   const rowNumber = [1, 2, 3, 4, 5, 6]
   const [form, setForm] = useContext(FormContext)
-  console.log(form)
+
+  //console.log('outter parent: ' + form)
 
   return (
     <div>

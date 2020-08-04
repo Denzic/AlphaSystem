@@ -15,18 +15,18 @@ const EditItem = ({ id }) => {
   }, [])
 
   const getDevice = async () => {
-    const response = await fetch(`weatherforecast/crews/1`)
+    const response = await fetch(`inventory/crews/1`)
     const data = await response.json()
     console.log(response.status)
     setDevice(data)
   }
 
   const matched = () => {
-    const data = form.map(property => {
-      // if the object has corresponding field then assign value to form properties
+    const processed = form.map(property => {
+      // if the device has corresponding field then assign its value to form
       if (device[property.name]) property.value = device[property.name]
     })
-    setDeviceDetial(data)
+    setDeviceDetial(processed)
   }
 
   return (
