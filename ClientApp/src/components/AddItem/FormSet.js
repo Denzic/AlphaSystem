@@ -4,7 +4,7 @@ import InputGenerator from "./InputGenerator"
 
 let count = -1
 
-const FormCol = ({ form }) => {
+const FormCol = ({ form, formData, setFormData, handleChange }) => {
   count++
   if (count === 18) count = 0
 
@@ -12,7 +12,13 @@ const FormCol = ({ form }) => {
     if (form[count].type === "textarea")
       return <Input type={form[count].type} name={form[count].name} rows='4' />
     else if (form[count].name !== "price")
-      return <Input type={form[count].type} name={form[count].name} />
+      return (
+        <Input
+          type={form[count].type}
+          name={form[count].name}
+          onChange={handleChange}
+        />
+      )
     else return <InputGenerator currentInput={form[count]} />
   }
 
@@ -28,6 +34,10 @@ const FormCol = ({ form }) => {
   //     </>
   //   )
   // }
+
+  const handleOnload = () => {
+    console.log(count)
+  }
 
   return (
     <>

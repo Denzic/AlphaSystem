@@ -1,8 +1,21 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { Table } from "reactstrap"
 
 const TotalItems = () => {
+  const [devices, setDevices] = useState([])
+
+  useEffect(() => {
+    getCrews()
+  }, [])
+
+  const getCrews = async () => {
+    const response = await fetch(`inventory/devices`)
+    const data = await response.json()
+    console.log(response.status)
+    setDevices(data)
+  }
+
   return (
     <div>
       <h1>Total Items</h1>
@@ -20,22 +33,16 @@ const TotalItems = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Acer Monitor</td>
-            <td>Monitor</td>
-            <td>Y</td>
-            <td>Dean Wang</td>
-            <td>Edit</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Acer Monitor</td>
-            <td>Monitor</td>
-            <td>Y</td>
-            <td>Dean Wang</td>
-            <td>Edit</td>
-          </tr>
+          {devices.map((d, index) => (
+            <tr key={index}>
+              <td>{d.device_id}</td>
+              <td>{d.device_name}</td>
+              <td>{d.type}</td>
+              <td>Y</td>
+              <td>Dean Wang</td>
+              <td>Edit</td>
+            </tr>
+          ))}
         </tbody>
       </Table>
     </div>

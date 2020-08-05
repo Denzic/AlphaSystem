@@ -15,7 +15,7 @@ const EditItem = ({ id }) => {
   }, [])
 
   const getDevice = async () => {
-    const response = await fetch(`inventory/crews/1`)
+    const response = await fetch(`inventory/crews/{id}`)
     const data = await response.json()
     console.log(response.status)
     setDevice(data)

@@ -23,6 +23,7 @@ namespace AlphaSystem.Controllers
     private readonly ILogger<InventoryController> _logger;
     private readonly IConfiguration _config;
     private readonly string connectionString = "Server=localhost;Database=school;Uid=root;Password=Cf222222;";
+    private readonly string maxDb = "Server=localhost;Database=max_devices;Uid=root;Password=Cf222222;";
 
     public InventoryController(ILogger<InventoryController> logger, IConfiguration config)
     {
@@ -43,11 +44,11 @@ namespace AlphaSystem.Controllers
       .ToArray();
     }
 
-    [HttpGet("crews")]
-    public IEnumerable<Student> GetCrews()
+    [HttpGet("devices")]
+    public IEnumerable<Device> GetCrews()
     {
-      using var connection = new MySqlConnection(connectionString);
-      var data = connection.GetAll<Student>();
+      using var connection = new MySqlConnection(maxDb);
+      var data = connection.GetAll<Device>();
       return data;
     }
 
@@ -59,11 +60,11 @@ namespace AlphaSystem.Controllers
       return data;
     }
 
-    [HttpPost("post")]
-    public void Post([FromBody] Student student)
+    [HttpPost("add")]
+    public void Add([FromBody] Device device)
     {
-      using var connection = new MySqlConnection(connectionString);
-      connection.Insert(student);
+      using var connection = new MySqlConnection(maxDb);
+      connection.Insert(device);
     }
 
     [HttpDelete("delete")]
@@ -81,6 +82,12 @@ namespace AlphaSystem.Controllers
       var newStudent = connection.Get<Student>(student.Id);
 
       connection.Update(student);
+    }
+
+    [HttpPost("adddevice")]
+    private IEnumerable<Device> AddDevice()
+    {
+      throw new NotImplementedException();
     }
   }
 }
