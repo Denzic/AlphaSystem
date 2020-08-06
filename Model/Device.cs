@@ -14,7 +14,7 @@ namespace AlphaSystem
     public string Original_feature { get; set; }
     public string Order_date { get; set; }
     public string Deliver_date { get; set; }
-    public string Website { get; set; }
+    public string Order_website { get; set; }
     public string Order_reason { get; set; }
     public int Order_price { get; set; }
     public string Order_currency { get; set; }
@@ -26,6 +26,6 @@ namespace AlphaSystem
     public string Device_access_type { get; set; }
     public string Stock_amount { get; set; }
     public string Memo { get; set; }
-    public int Order_person { get; set; }
+    public int Order_staff { get; set; }
   }
 }

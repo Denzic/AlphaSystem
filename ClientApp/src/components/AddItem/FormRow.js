@@ -1,21 +1,26 @@
 import React from "react"
-import { Col, FormGroup } from "reactstrap"
-import FormSet from "./FormSet"
+import { Col, FormGroup, Label } from "reactstrap"
+import InputGenerator from "./InputGenerator"
 
-const FormRow = ({ form, formData, setFormData, handleChange }) => {
+let count = -1
+
+const FormRow = ({ form, formData, onChange }) => {
   const colNumber = [1, 2, 3]
+
   return (
     <>
       {colNumber.map((n, index) => (
         <Col md={4} key={index}>
           <Col md={12}>
             <FormGroup>
-              <FormSet
-                key={index}
-                form={form}
+              <div style={{ display: "none" }}>
+                {count === 17 ? (count = 0) : count++}
+              </div>
+              <Label>{form[count].label}</Label>
+              <InputGenerator
+                currentInput={form[count]}
+                onChange={onChange}
                 formData={formData}
-                setFormData={setFormData}
-                handleChange={handleChange}
               />
             </FormGroup>
           </Col>

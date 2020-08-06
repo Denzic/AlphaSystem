@@ -1,47 +1,63 @@
 import React, { useContext, useState, useEffect } from "react"
-import { Row, Button, Form } from "reactstrap"
+import { Row, Button, Form, Label } from "reactstrap"
 import FormRow from "../AddItem/FormRow"
 import { FormContext } from "../Context/FormContext"
+import { getDevice } from "../APIOperations/HTTPOperations"
+import { post } from "../APIOperations/HTTPOperations"
 
-const EditItem = ({ id }) => {
+const EditItem = ({ match }) => {
+  const {
+    params: { id }
+  } = match
   const rowNumber = [1, 2, 3, 4, 5, 6]
   const [form, setForm] = useContext(FormContext)
-  const [device, setDevice] = useState([])
-  const [deviceDetial, setDeviceDetial] = useState({})
-  console.log(form)
+  const [formData, setFormData] = useState({})
 
   useEffect(() => {
-    getDevice()
+    getDevice(setFormData, id)
   }, [])
 
-  const getDevice = async () => {
-    const response = await fetch(`inventory/crews/{id}`)
-    const data = await response.json()
-    console.log(response.status)
-    setDevice(data)
+  const handleChange = e => {
+    const { name, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: checkDate(value) || parseInt(value) || value
+    }))
   }
 
-  const matched = () => {
-    const processed = form.map(property => {
-      // if the device has corresponding field then assign its value to form
-      if (device[property.name]) property.value = device[property.name]
-    })
-    setDeviceDetial(processed)
+  // TODO :change to PUT
+  const handleSubmit = async e => {
+    e.preventDefault()
+    post(formData)
   }
+
+  const checkDate = value =>
+    value.match(/([1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/)
+      ? value
+      : false
 
   return (
     <div>
       <h1>Edit Item</h1>
-      <h5>ID: {device.id}</h5>
-      <Form>
+      <Label>ID: {id}</Label>
+      <Form onSubmit={handleSubmit}>
         {rowNumber.map((n, index) => (
-          <Row form>
-            <FormRow key={index} form={form} />
+          <Row form key={index}>
+            <FormRow form={form} onChange={handleChange} formData={formData} />
           </Row>
         ))}
+        <Button>Submit</Button>
       </Form>
     </div>
   )
 }
 
 export default EditItem
+
+// const matched = () => {
+//   const processed = form.map(property => {
+//     // if the device has corresponding field then assign its value to form
+//     if (device[property.name]) property.value = device[property.name]
+//   })
+//   setDevice(processed)
+// }

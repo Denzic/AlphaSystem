@@ -68,11 +68,6 @@ export const NavCopy = () => {
                     Total Items
                   </NavLink>
                 </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} className='text-dark' to='/EditItem'>
-                    Edit Item
-                  </NavLink>
-                </NavItem>
               </ul>
             </Collapse>
           </Container>

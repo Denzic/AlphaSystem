@@ -20,7 +20,6 @@ const TotalItems = () => {
     <div>
       <h1>Total Items</h1>
       <Link to='./AddItem'>Add Item +</Link>
-      <Link to='/EditItem'>Edit Item +</Link>
       <Table>
         <thead>
           <tr>
@@ -40,7 +39,10 @@ const TotalItems = () => {
               <td>{d.type}</td>
               <td>Y</td>
               <td>Dean Wang</td>
-              <td>Edit</td>
+              {/* TODO: Edit page */}
+              <td>
+                <Link to={`/EditItem/${d.device_id}`}>Edit</Link>
+              </td>
             </tr>
           ))}
         </tbody>

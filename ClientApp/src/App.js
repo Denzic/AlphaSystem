@@ -22,7 +22,7 @@ const App = () => {
         <Route path='/showcrews' component={ShowCrews} />
         <Route path='/TotalItems' component={TotalItems} />
         <Route path='/AddItem' component={AddItem} />
-        <Route path='/EditItem' component={EditItem} />
+        <Route path='/EditItem/:id' component={EditItem} />
       </Layout>
     </FormProvider>
   )
