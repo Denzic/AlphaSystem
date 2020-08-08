@@ -1,9 +1,9 @@
-import React, { useContext, useState, useEffect } from "react"
-import { Row, Button, Form, Label } from "reactstrap"
+aimport React, { useContext, useState, useEffect } from "react"
+taimport { Row, Button, Form, Label, Col, Table, Input } from "reactstrap"
 import FormRow from "../AddItem/FormRow"
 import { FormContext } from "../Context/FormContext"
-import { getDevice } from "../APIOperations/HTTPOperations"
-import { post } from "../APIOperations/HTTPOperations"
+import { getDevice, getHistory, update } from "../APIOperations/HTTPOperations"
+import { formatDate } from "../APIOperations/Operations"
 
 const EditItem = ({ match }) => {
   const {
@@ -12,29 +12,33 @@ const EditItem = ({ match }) => {
   const rowNumber = [1, 2, 3, 4, 5, 6]
   const [form, setForm] = useContext(FormContext)
   const [formData, setFormData] = useState({})
+  const [history, setHistory] = useState([])
 
   useEffect(() => {
-    getDevice(setFormData, id)
+    getDevice(editData, id)
+    getHistory(setHistory, id)
   }, [])
 
+  const editData = data => {
+    data["order_date"] = formatDate(data["order_date"])
+    data["deliver_date"] = formatDate(data["deliver_date"])
+    setFormData(data)
+  }
+
   const handleChange = e => {
-    const { name, value } = e.target
+    const { name, value, type } = e.target
     setFormData(prev => ({
       ...prev,
-      [name]: checkDate(value) || parseInt(value) || value
+      [name]: checkDate(type, value) || parseInt(value) || value
     }))
   }
 
-  // TODO :change to PUT
+  const checkDate = (type, value) => (type === "date" ? value : false)
+
   const handleSubmit = async e => {
     e.preventDefault()
-    post(formData)
+    update(formData)
   }
-
-  const checkDate = value =>
-    value.match(/([1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/)
-      ? value
-      : false
 
   return (
     <div>
@@ -48,6 +52,40 @@ const EditItem = ({ match }) => {
         ))}
         <Button>Submit</Button>
       </Form>
+
+      <Label>Device History</Label>
+      <Row>
+        <Col md={6}>
+          <Table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Action</th>
+                <th>Operator</th>
+              </tr>
+            </thead>
+            <tbody>
+              {history.map((h, index) => (
+                <tr key={index}>
+                  <td>{h.history_id}</td>
+                  <td>{h.action}</td>
+                  <td>{h.staff_id}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Col>
+        <Col md={6}>
+          <Table>
+            <thead>
+              <tr>
+                <th>Description</th>
+              </tr>
+            </thead>
+          </Table>
+          <Input type='textarea' row='4'></Input>
+        </Col>
+      </Row>
     </div>
   )
 }

@@ -2,22 +2,6 @@ import React, { useState, useEffect } from "react"
 import { Input, Col, Row } from "reactstrap"
 
 const InputGenerator = ({ currentInput, onChange, formData }) => {
-  const modFormData = () => {
-    if (currentInput.type === "date")
-      return formatDate(formData[currentInput.name])
-    else return formData[currentInput.name]
-  }
-
-  const formatDate = dateString => {
-    let date = new Date(dateString)
-    const y = date.getFullYear()
-    let m = date.getMonth()
-    m < 10 ? (m = "0" + m) : (m = date.getMonth())
-    let d = date.getDay()
-    d < 10 ? (d = "0" + d) : (d = date.getDay())
-    return y + "-" + m + "-" + d
-  }
-
   const renderInput = () => {
     if (currentInput.type === "textarea")
       return (
@@ -26,7 +10,7 @@ const InputGenerator = ({ currentInput, onChange, formData }) => {
           name={currentInput.name}
           rows='4'
           onChange={onChange}
-          value={modFormData()}
+          value={formData[currentInput.name]}
         />
       )
     else if (currentInput.name !== "price")
@@ -35,7 +19,7 @@ const InputGenerator = ({ currentInput, onChange, formData }) => {
           type={currentInput.type}
           name={currentInput.name}
           onChange={onChange}
-          value={modFormData()}
+          value={formData[currentInput.name]}
         />
       )
     else return renderSpecialInput()
@@ -50,7 +34,7 @@ const InputGenerator = ({ currentInput, onChange, formData }) => {
               type={currentInput.type[0]}
               name={currentInput.name}
               onChange={onChange}
-              value={modFormData()}
+              value={formData[currentInput.name]}
             />
           </Col>
           <Col md={5}>
@@ -58,7 +42,7 @@ const InputGenerator = ({ currentInput, onChange, formData }) => {
               type={currentInput.type[1]}
               name={currentInput.name}
               onChange={onChange}
-              value={modFormData()}
+              value={formData[currentInput.name]}
             />
           </Col>
         </Row>
