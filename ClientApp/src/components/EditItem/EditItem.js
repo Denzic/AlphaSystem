@@ -1,5 +1,5 @@
-aimport React, { useContext, useState, useEffect } from "react"
-taimport { Row, Button, Form, Label, Col, Table, Input } from "reactstrap"
+import React, { useContext, useState, useEffect } from "react"
+import { Row, Button, Form, Label, Col, Table, Input } from "reactstrap"
 import FormRow from "../AddItem/FormRow"
 import { FormContext } from "../Context/FormContext"
 import { getDevice, getHistory, update } from "../APIOperations/HTTPOperations"
