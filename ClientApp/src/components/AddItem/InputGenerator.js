@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import { Input, Col, Row } from "reactstrap"
 
 const InputGenerator = ({ currentInput, onChange, formData }) => {
@@ -13,7 +13,7 @@ const InputGenerator = ({ currentInput, onChange, formData }) => {
           value={formData[currentInput.name]}
         />
       )
-    else if (currentInput.name !== "price")
+    else if (!Array.isArray(currentInput.name))
       return (
         <Input
           type={currentInput.type}
@@ -26,23 +26,23 @@ const InputGenerator = ({ currentInput, onChange, formData }) => {
   }
 
   const renderSpecialInput = () => {
-    if (currentInput.name === "price") {
+    if (Array.isArray(currentInput.name)) {
       return (
         <Row form>
           <Col md={7}>
             <Input
               type={currentInput.type[0]}
-              name={currentInput.name}
+              name={currentInput.name[0]}
               onChange={onChange}
-              value={formData[currentInput.name]}
+              value={formData[currentInput.name[0]]}
             />
           </Col>
           <Col md={5}>
             <Input
               type={currentInput.type[1]}
-              name={currentInput.name}
+              name={currentInput.name[1]}
               onChange={onChange}
-              value={formData[currentInput.name]}
+              value={formData[currentInput.name[1]]}
             />
           </Col>
         </Row>

@@ -4,10 +4,10 @@ export const getDevice = async (editData, id) => {
   editData(data)
 }
 
-export const getHistory = async (setHistory, id) => {
+export const getHistory = async (editHistoryData, id) => {
   const response = await fetch(`inventory/history/${id}`)
   const data = await response.json()
-  setHistory(data)
+  editHistoryData(data)
 }
 
 export const post = async formData => {
@@ -19,6 +19,19 @@ export const post = async formData => {
     },
     body: JSON.stringify(formData)
   })
+  console.log(response.status)
+}
+
+export const postHistory = async historyInput => {
+  const response = await fetch(`inventory/addhistory`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json;charset=UTF-8"
+    },
+    body: JSON.stringify(historyInput)
+  })
+  console.log("post history: " + historyInput["action_date"])
   console.log(response.status)
 }
 

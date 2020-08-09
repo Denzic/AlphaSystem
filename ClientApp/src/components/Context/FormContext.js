@@ -16,7 +16,7 @@ const FormProvider = props => {
     },
     {
       label: "Location",
-      name: "location",
+      name: "location_no",
       type: "text"
     },
     {
@@ -40,8 +40,8 @@ const FormProvider = props => {
       type: "text"
     },
     {
-      label: "Order URL",
-      name: "order_url",
+      label: "Order Website",
+      name: "order_website",
       type: "text"
     },
     {
@@ -56,12 +56,12 @@ const FormProvider = props => {
     },
     {
       label: "IP",
-      name: "ip",
+      name: "device_ip",
       type: "text"
     },
     {
       label: "Price",
-      name: "price",
+      name: ["price", "currency"],
       type: ["text", "select"],
       options: ["Jennifer", "Larry"]
     },
@@ -72,7 +72,7 @@ const FormProvider = props => {
     },
     {
       label: "Invoice Number",
-      name: "invoice_number",
+      name: "invoice_no",
       type: "text"
     },
     {

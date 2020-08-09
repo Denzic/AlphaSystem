@@ -10,22 +10,19 @@ const AddItem = () => {
   const [formData, setFormData] = useState({})
 
   const handleChange = e => {
-    const { name, value } = e.target
+    const { name, value, type } = e.target
     setFormData(prev => ({
       ...prev,
-      [name]: checkDate(value) || parseInt(value) || value
+      [name]: checkDate(type, value) || parseInt(value) || value
     }))
   }
 
-  const handleSubmit = async e => {
+  const checkDate = (type, value) => (type === "date" ? value : false)
+
+  const handleSubmit = e => {
     e.preventDefault()
     post(formData)
   }
-
-  const checkDate = value =>
-    value.match(/([1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/)
-      ? value
-      : false
 
   return (
     <div>
@@ -43,3 +40,8 @@ const AddItem = () => {
 }
 
 export default AddItem
+
+// const checkDate = value =>
+//   value.match(/([1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/)
+//     ? value
+//     : false
