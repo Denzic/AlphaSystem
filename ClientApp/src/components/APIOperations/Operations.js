@@ -23,5 +23,17 @@ const checkInput = (name, value) => {
   if (name === "staff_id") return parseInt(value)
 }
 
-export const convertName = (formData, staff) =>
-  staff[formData["order_staff"] - 1].first_name
+export const convertName = (formData, staff) => {
+  staff.forEach(s => {
+    if (formData["order_staff"] === s.staff_id)
+      formData["order_staff"] = s.first_name
+  })
+}
+
+export const convertId = (formData, name, staff) => {
+  staff.forEach(s => {
+    if (formData["order_staff"] === s.staff_id)
+      formData["order_staff"] = s.first_name
+  })
+  return formData["order_staff"]
+}

@@ -14,7 +14,7 @@ import {
   convertName
 } from "../APIOperations/Operations"
 import HistoryModal from "./HistoryModal"
-import { StaffContext } from "../Context/StaffContext"
+import { showDescription } from "./EditItemLogic"
 
 const EditItem = ({ match }) => {
   const {
@@ -25,38 +25,37 @@ const EditItem = ({ match }) => {
   const [formData, setFormData] = useState({})
   const [history, setHistory] = useState([])
   const [historyDescription, setHistoryDescription] = useState("")
+  const [staffState, setStaffState] = useState([])
   let staffs = []
 
   useEffect(() => {
     getStaffs(editStaffs)
     getDevice(editData, id)
-    getHistory(editHistoryData, id)
+    getHistory(editHistory, id)
   }, [])
 
   const editData = data => {
     data["order_date"] = formatDate(data["order_date"])
     data["deliver_date"] = formatDate(data["deliver_date"])
-    if (staffs !== undefined) data["order_staff"] = convertName(data, staffs)
+    if (staffs !== undefined) convertName(data, staffs)
     setFormData(data)
   }
 
-  const editHistoryData = data => {
+  const editHistory = data => {
     data.forEach(d => {
       d["action_date"] = formatDate(d["action_date"])
     })
     setHistory(data)
   }
 
-  const editStaffs = staff => (staffs = staff)
+  const editStaffs = staff => {
+    staffs = staff
+    setStaffState(staffs)
+  }
 
   const handleSubmit = async e => {
     e.preventDefault()
     update(formData)
-  }
-
-  const showDescription = e => {
-    const id = parseInt(e.target.parentNode.id)
-    setHistoryDescription(history[id].description)
   }
 
   return (
@@ -70,6 +69,7 @@ const EditItem = ({ match }) => {
               form={form}
               onChange={e => handleChange(setFormData, e)}
               formData={formData}
+              staffs={staffState}
             />
           </Row>
         ))}
@@ -90,7 +90,12 @@ const EditItem = ({ match }) => {
             </thead>
             <tbody>
               {history.map((h, index) => (
-                <tr key={index} id={index} onClick={showDescription}>
+                <tr
+                  key={index}
+                  id={index}
+                  onClick={e =>
+                    showDescription(setHistoryDescription, history, e)
+                  }>
                   <td>{h.action_date}</td>
                   <td>{h.action}</td>
                   <td>{h.staff_id}</td>

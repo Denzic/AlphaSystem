@@ -23,7 +23,7 @@ namespace AlphaSystem.Controllers
     private readonly ILogger<InventoryController> _logger;
     private readonly IConfiguration _config;
     private readonly string connectionString = "Server=localhost;Database=school;Uid=root;Password=op930917;";
-    private readonly string maxDb = "Server=localhost;Database=max_devices;Uid=root;Password=Cf222222;";
+    private readonly string maxDb = "Server=localhost;Database=max_devices;Uid=root;Password=op930917;";
 
     public InventoryController(ILogger<InventoryController> logger, IConfiguration config)
     {

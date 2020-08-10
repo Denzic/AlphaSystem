@@ -2,11 +2,10 @@ import React, { useState, useEffect, useContext } from "react"
 import { Link } from "react-router-dom"
 import { Table } from "reactstrap"
 import { getCrews } from "./APIOperations/HTTPOperations"
-import { StaffContext } from "./Context/StaffContext"
+import { staffs } from "./Context/StaffArray"
 
 const TotalItems = () => {
   const [devices, setDevices] = useState([])
-  const [staff, setStaff] = useContext(StaffContext)
 
   useEffect(() => {
     getCrews(setDevices)
