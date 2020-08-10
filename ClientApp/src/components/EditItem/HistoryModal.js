@@ -12,7 +12,7 @@ import {
   Form
 } from "reactstrap"
 
-const HistoryModal = ({ id }) => {
+const HistoryModal = ({ id, setHistory }) => {
   const [modal, setModal] = useState(false)
   const [historyInput, sethistoryInput] = useState({
     device_id: parseInt(id)
@@ -29,6 +29,7 @@ const HistoryModal = ({ id }) => {
   const handleSubmit = e => {
     e.preventDefault()
     postHistory(historyInput)
+    setHistory(prev => [...prev, historyInput])
   }
 
   return (

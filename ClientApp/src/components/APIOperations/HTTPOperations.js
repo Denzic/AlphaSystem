@@ -1,3 +1,17 @@
+export const getCrews = async setDevices => {
+  const response = await fetch(`inventory/devices`)
+  const data = await response.json()
+  setDevices(data)
+  console.log(response.status)
+}
+
+export const getStaffs = async setStaff => {
+  const response = await fetch(`inventory/staff`)
+  const data = await response.json()
+  setStaff(data)
+  console.log(response.status)
+}
+
 export const getDevice = async (editData, id) => {
   const response = await fetch(`inventory/device/${id}`)
   const data = await response.json()

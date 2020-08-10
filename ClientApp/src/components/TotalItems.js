@@ -1,20 +1,16 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import { Link } from "react-router-dom"
 import { Table } from "reactstrap"
+import { getCrews } from "./APIOperations/HTTPOperations"
+import { StaffContext } from "./Context/StaffContext"
 
 const TotalItems = () => {
   const [devices, setDevices] = useState([])
+  const [staff, setStaff] = useContext(StaffContext)
 
   useEffect(() => {
-    getCrews()
+    getCrews(setDevices)
   }, [])
-
-  const getCrews = async () => {
-    const response = await fetch(`inventory/devices`)
-    const data = await response.json()
-    console.log(response.status)
-    setDevices(data)
-  }
 
   return (
     <div>
@@ -38,7 +34,7 @@ const TotalItems = () => {
               <td>{d.device_name}</td>
               <td>{d.type}</td>
               <td>Y</td>
-              <td>Dean Wang</td>
+              <td>Dean</td>
               {/* TODO: Edit page */}
               <td>
                 <Link to={`/EditItem/${d.device_id}`}>Edit</Link>

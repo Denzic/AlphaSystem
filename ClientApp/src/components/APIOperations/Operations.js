@@ -1,3 +1,5 @@
+import { getCrews } from "./HTTPOperations"
+
 export const formatDate = dateString => {
   if (dateString === undefined || dateString === null) return
   const date = dateString.split(" ")
@@ -11,9 +13,15 @@ export const handleChange = (setInput, e) => {
   const { name, value } = e.target
   setInput(prev => ({
     ...prev,
-    [name]: checkDate(name, value) || value
+    [name]: checkInput(name, value) || value
   }))
 }
 
-const checkDate = (name, value) =>
-  name === "price" ? parseFloat(value) : false
+const checkInput = (name, value) => {
+  if (name === "price") return parseFloat(value)
+  if (name === "order_staff") return parseInt(value)
+  if (name === "staff_id") return parseInt(value)
+}
+
+export const convertName = (formData, staff) =>
+  staff[formData["order_staff"] - 1].first_name

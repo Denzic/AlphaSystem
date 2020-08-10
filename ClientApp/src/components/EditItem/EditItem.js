@@ -2,9 +2,19 @@ import React, { useContext, useState, useEffect } from "react"
 import { Row, Button, Form, Label, Col, Table, Input } from "reactstrap"
 import FormRow from "../AddItem/FormRow"
 import { FormContext } from "../Context/FormContext"
-import { getDevice, getHistory, update } from "../APIOperations/HTTPOperations"
-import { formatDate, handleChange } from "../APIOperations/Operations"
+import {
+  getDevice,
+  getHistory,
+  update,
+  getStaffs
+} from "../APIOperations/HTTPOperations"
+import {
+  formatDate,
+  handleChange,
+  convertName
+} from "../APIOperations/Operations"
 import HistoryModal from "./HistoryModal"
+import { StaffContext } from "../Context/StaffContext"
 
 const EditItem = ({ match }) => {
   const {
@@ -15,8 +25,10 @@ const EditItem = ({ match }) => {
   const [formData, setFormData] = useState({})
   const [history, setHistory] = useState([])
   const [historyDescription, setHistoryDescription] = useState("")
+  let staffs = []
 
   useEffect(() => {
+    getStaffs(editStaffs)
     getDevice(editData, id)
     getHistory(editHistoryData, id)
   }, [])
@@ -24,6 +36,7 @@ const EditItem = ({ match }) => {
   const editData = data => {
     data["order_date"] = formatDate(data["order_date"])
     data["deliver_date"] = formatDate(data["deliver_date"])
+    if (staffs !== undefined) data["order_staff"] = convertName(data, staffs)
     setFormData(data)
   }
 
@@ -33,6 +46,8 @@ const EditItem = ({ match }) => {
     })
     setHistory(data)
   }
+
+  const editStaffs = staff => (staffs = staff)
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -61,8 +76,8 @@ const EditItem = ({ match }) => {
         <Button>Submit</Button>
       </Form>
 
-      <Label>Device History</Label>
-      <HistoryModal id={id} />
+      <h2>Device History</h2>
+      <HistoryModal id={id} setHistory={setHistory} />
       <Row>
         <Col md={6}>
           <Table>
