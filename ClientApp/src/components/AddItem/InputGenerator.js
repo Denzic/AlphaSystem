@@ -4,6 +4,14 @@ import { Input, Col, Row } from "reactstrap"
 const InputGenerator = ({ currentField, onChange, formData, staffs }) => {
   const txtArea = () => currentField.type === "textarea" && { rows: "4" }
 
+  const defaultOption = () =>
+    !formData[currentField.name] ? (
+      <option disabled selected value>
+        {" "}
+        -- select a staff --{" "}
+      </option>
+    ) : null
+
   const selected = staff =>
     formData[currentField.name] === staff.staff_id
       ? { selected: "selected" }
@@ -27,6 +35,7 @@ const InputGenerator = ({ currentField, onChange, formData, staffs }) => {
           onChange={onChange}
           defaultValue={formData[currentField.name]}
           {...txtArea()}>
+          {defaultOption()}
           {renderOptions()}
         </Input>
       )
@@ -50,9 +59,9 @@ const InputGenerator = ({ currentField, onChange, formData, staffs }) => {
             name={currentField.name[1]}
             onChange={onChange}
             defaultValue={formData[currentField.name[1]]}>
-            <option value='aud'>AUD</option>
-            <option value='rmb'>RMB</option>
-            <option value='usd'>USD</option>
+            <option value='aud'>AUD$</option>
+            <option value='rmb'>RMB￥</option>
+            <option value='usd'>USD$</option>
           </Input>
         </Col>
       </Row>
