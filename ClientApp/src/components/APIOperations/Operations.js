@@ -11,6 +11,7 @@ export const formatDate = dateString => {
 
 export const handleChange = (setInput, e) => {
   const { name, value } = e.target
+  console.log(value)
   setInput(prev => ({
     ...prev,
     [name]: checkInput(name, value) || value
@@ -47,6 +48,7 @@ export const idToName = (id, staffs) => {
 }
 
 export const nameToId = (name, staffs) => {
+  if (!isNaN(name)) return name
   let id = 0
   staffs.map(staff => {
     if (staff.first_name === name) id = staff.staff_id

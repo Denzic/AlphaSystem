@@ -1,23 +1,33 @@
 import React from "react"
 import { Input, Col, Row } from "reactstrap"
 
-const InputGenerator = ({ currentInput, onChange, formData, staffs }) => {
+const InputGenerator = ({ currentField, onChange, formData, staffs }) => {
+  const txtArea = () => currentField.type === "textarea" && { rows: "4" }
+
+  const selected = staff =>
+    formData[currentField.name] === staff.staff_id
+      ? { selected: "selected" }
+      : null
+
+  const renderOptions = () =>
+    currentField.type === "select"
+      ? staffs.map((staff, i) => (
+          <option key={i} value={staff.first_name} {...selected(staff)}>
+            {staff.first_name}
+          </option>
+        ))
+      : null
+
   const renderInput = () => {
-    if (!Array.isArray(currentInput.name))
+    if (!Array.isArray(currentField.name))
       return (
         <Input
-          type={currentInput.type}
-          name={currentInput.name}
+          type={currentField.type}
+          name={currentField.name}
           onChange={onChange}
-          defaultValue={formData[currentInput.name]}
-          {...(currentInput.type === "textarea" && { rows: "4" })}>
-          {currentInput.type === "select"
-            ? staffs.map((staff, i) => (
-                <option key={i} value={staff.first_name}>
-                  {staff.first_name}
-                </option>
-              ))
-            : null}
+          defaultValue={formData[currentField.name]}
+          {...txtArea()}>
+          {renderOptions()}
         </Input>
       )
     else return renderSpecialInput()
@@ -28,18 +38,18 @@ const InputGenerator = ({ currentInput, onChange, formData, staffs }) => {
       <Row form>
         <Col md={7}>
           <Input
-            type={currentInput.type[0]}
-            name={currentInput.name[0]}
+            type={currentField.type[0]}
+            name={currentField.name[0]}
             onChange={onChange}
-            defaultValue={formData[currentInput.name[0]]}
+            defaultValue={formData[currentField.name[0]]}
           />
         </Col>
         <Col md={5}>
           <Input
-            type={currentInput.type[1]}
-            name={currentInput.name[1]}
+            type={currentField.type[1]}
+            name={currentField.name[1]}
             onChange={onChange}
-            defaultValue={formData[currentInput.name[1]]}>
+            defaultValue={formData[currentField.name[1]]}>
             <option value='aud'>AUD</option>
             <option value='rmb'>RMB</option>
             <option value='usd'>USD</option>

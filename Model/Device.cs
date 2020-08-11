@@ -18,6 +18,7 @@ namespace AlphaSystem
     public string Order_reason { get; set; }
     public int Price { get; set; }
     public string Currency { get; set; }
+    public int For_staff { get; set; }
     public string Invoice_no { get; set; }
     public string Approved_by { get; set; }
     public string Location_no { get; set; }

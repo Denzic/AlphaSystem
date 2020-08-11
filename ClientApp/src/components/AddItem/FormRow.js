@@ -18,7 +18,7 @@ const FormRow = ({ form, formData, onChange, staffs }) => {
               </div>
               <Label>{form[count].label}</Label>
               <InputGenerator
-                currentInput={form[count]}
+                currentField={form[count]}
                 onChange={onChange}
                 formData={formData}
                 staffs={staffs}
