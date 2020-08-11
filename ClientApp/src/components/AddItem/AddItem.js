@@ -2,8 +2,9 @@ import React, { useContext, useState, useEffect } from "react"
 import { Row, Button, Form } from "reactstrap"
 import FormRow from "./FormRow"
 import { FormContext } from "../Context/FormContext"
-import { post } from "../APIOperations/HTTPOperations"
-import { getStaffs } from "../APIOperations/HTTPOperations"
+import { getStaffs, post } from "../APIOperations/HTTPOperations"
+import { handleChange } from "../APIOperations/Operations"
+import { processDataToBack } from "../APIOperations/ProcessData"
 
 const AddItem = () => {
   const rowNumber = [1, 2, 3, 4, 5, 6]
@@ -20,19 +21,11 @@ const AddItem = () => {
     staffs = staff
     setStaffState(staffs)
   }
-  const handleChange = e => {
-    const { name, value, type } = e.target
-    setFormData(prev => ({
-      ...prev,
-      [name]: checkDate(type, value) || parseInt(value) || value
-    }))
-  }
-
-  const checkDate = (type, value) => (type === "date" ? value : false)
 
   const handleSubmit = e => {
     e.preventDefault()
-    post(formData)
+    const processeData = processDataToBack(formData, staffState)
+    post(processeData)
   }
 
   return (
@@ -44,7 +37,9 @@ const AddItem = () => {
             <FormRow
               form={form}
               formData={formData}
-              onChange={handleChange}
+              onChange={e => {
+                handleChange(setFormData, e)
+              }}
               staffs={staffState}
             />
           </Row>

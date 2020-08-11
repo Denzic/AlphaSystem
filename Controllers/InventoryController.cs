@@ -15,33 +15,13 @@ namespace AlphaSystem.Controllers
   [Route("[controller]")]
   public class InventoryController : ControllerBase
   {
-    private static readonly string[] Summaries = new[]
-    {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
     private readonly ILogger<InventoryController> _logger;
-    private readonly IConfiguration _config;
     private readonly string connectionString = "Server=localhost;Database=school;Uid=root;Password=op930917;";
-    private readonly string maxDb = "Server=localhost;Database=max_devices;Uid=root;Password=op930917;";
+    private readonly string maxDb = "Server=localhost;Database=max_devices;Uid=root;Password=Cf222222;";
 
-    public InventoryController(ILogger<InventoryController> logger, IConfiguration config)
+    public InventoryController(ILogger<InventoryController> logger)
     {
       _logger = logger;
-      _config = config;
-    }
-
-    [HttpGet]
-    public IEnumerable<WeatherForecast> Get()
-    {
-      var rng = new Random();
-      return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-      {
-        Date = DateTime.Now.AddDays(index),
-        TemperatureC = rng.Next(-20, 55),
-        Summary = Summaries[rng.Next(Summaries.Length)]
-      })
-      .ToArray();
     }
 
     [HttpGet("devices")]
@@ -91,10 +71,10 @@ namespace AlphaSystem.Controllers
     }
 
     [HttpDelete("delete")]
-    public void Delete([FromBody] Student student)
+    public void Delete([FromBody] Device device)
     {
-      using var connection = new MySqlConnection(connectionString);
-      connection.Delete(student);
+      using var connection = new MySqlConnection(maxDb);
+      connection.Delete(device);
     }
 
     [HttpPut("put")]
@@ -103,6 +83,5 @@ namespace AlphaSystem.Controllers
       using var connection = new MySqlConnection(maxDb);
       connection.Update(device);
     }
-
   }
 }

@@ -33,6 +33,7 @@ export const post = async formData => {
     },
     body: JSON.stringify(formData)
   })
+  console.log(formData)
   console.log(response.status)
 }
 

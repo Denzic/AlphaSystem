@@ -18,7 +18,7 @@ export const handleChange = (setInput, e) => {
 }
 
 const checkInput = (name, value) => {
-  if (name === "price") return parseFloat(value)
+  if (name === "price") return parseInt(value)
   if (name === "order_staff") return parseInt(value)
   if (name === "staff_id") return parseInt(value)
 }
@@ -36,4 +36,20 @@ export const convertId = (formData, name, staff) => {
       formData["order_staff"] = s.first_name
   })
   return formData["order_staff"]
+}
+
+export const idToName = (id, staffs) => {
+  let name = ""
+  staffs.map(staff => {
+    if (staff.device_id === id) name = staff.first_name
+  })
+  return name
+}
+
+export const nameToId = (name, staffs) => {
+  let id = 0
+  staffs.map(staff => {
+    if (staff.first_name === name) id = staff.staff_id
+  })
+  return id
 }

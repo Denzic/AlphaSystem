@@ -44,25 +44,25 @@ const HistoryModal = ({ id, setHistory }) => {
               type='date'
               name='action_date'
               onChange={e => handleChange(sethistoryInput, e)}
-              value={historyInput["action_date"]}></Input>
+              defaultValue={historyInput["action_date"]}></Input>
             <Label>Action</Label>
             <Input
               type='text'
               name='action'
               onChange={e => handleChange(sethistoryInput, e)}
-              value={historyInput["action"]}></Input>
+              defaultValue={historyInput["action"]}></Input>
             <Label>Staff</Label>
             <Input
               type='text'
               name='staff_id'
               onChange={e => handleChange(sethistoryInput, e)}
-              value={historyInput["staff_id"]}></Input>
+              defaultValue={historyInput["staff_id"]}></Input>
             <Label>Description</Label>
             <Input
               type='textarea'
               name='description'
               onChange={e => handleChange(sethistoryInput, e)}
-              value={historyInput["description"]}></Input>
+              defaultValue={historyInput["description"]}></Input>
           </ModalBody>
           <ModalFooter>
             <Button color='primary' type='submit' onClick={toggle}>

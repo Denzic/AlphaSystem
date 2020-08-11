@@ -15,6 +15,7 @@ import {
 } from "../APIOperations/Operations"
 import HistoryModal from "./HistoryModal"
 import { showDescription } from "./EditItemLogic"
+import { processDataToBack } from "../APIOperations/ProcessData"
 
 const EditItem = ({ match }) => {
   const {
@@ -34,6 +35,11 @@ const EditItem = ({ match }) => {
     getHistory(editHistory, id)
   }, [])
 
+  const editStaffs = staff => {
+    staffs = staff
+    setStaffState(staffs)
+  }
+
   const editData = data => {
     data["order_date"] = formatDate(data["order_date"])
     data["deliver_date"] = formatDate(data["deliver_date"])
@@ -48,14 +54,10 @@ const EditItem = ({ match }) => {
     setHistory(data)
   }
 
-  const editStaffs = staff => {
-    staffs = staff
-    setStaffState(staffs)
-  }
-
   const handleSubmit = async e => {
     e.preventDefault()
-    update(formData)
+    const processedData = processDataToBack(formData, staffState)
+    update(processedData)
   }
 
   return (
