@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react"
-import { Row, Button, Form, Label, Col, Table, Input } from "reactstrap"
+import { Row, Button, Form, Label } from "reactstrap"
 import FormRow from "../AddItem/FormRow"
 import { FormContext } from "../Context/FormContext"
 import {
@@ -13,8 +13,7 @@ import {
   handleChange,
   convertName
 } from "../APIOperations/Operations"
-import HistoryModal from "./HistoryModal"
-import { showDescription } from "./EditItemLogic"
+import DeviceHistory from "../DeviceHistory/DeviceHistory"
 import { processDataToBack } from "../APIOperations/ProcessData"
 
 const EditItem = ({ match }) => {
@@ -22,7 +21,7 @@ const EditItem = ({ match }) => {
     params: { id }
   } = match
   const rowNumber = [1, 2, 3, 4, 5, 6]
-  const [form, setForm] = useContext(FormContext)
+  const [form] = useContext(FormContext)
   const [formData, setFormData] = useState({})
   const [history, setHistory] = useState([])
   const [historyDescription, setHistoryDescription] = useState("")
@@ -78,48 +77,13 @@ const EditItem = ({ match }) => {
         <Button>Submit</Button>
       </Form>
 
-      <h2>Device History</h2>
-      <HistoryModal id={id} setHistory={setHistory} />
-      <Row>
-        <Col md={6}>
-          <Table>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Action</th>
-                <th>Operator</th>
-              </tr>
-            </thead>
-            <tbody>
-              {history.map((h, index) => (
-                <tr
-                  key={index}
-                  id={index}
-                  onClick={e =>
-                    showDescription(setHistoryDescription, history, e)
-                  }>
-                  <td>{h.action_date}</td>
-                  <td>{h.action}</td>
-                  <td>{h.staff_id}</td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        </Col>
-        <Col md={6}>
-          <Table>
-            <thead>
-              <tr>
-                <th>Description</th>
-              </tr>
-            </thead>
-          </Table>
-          <Input
-            type='textarea'
-            rows='4'
-            defaultValue={historyDescription}></Input>
-        </Col>
-      </Row>
+      <DeviceHistory
+        id={id}
+        history={history}
+        setHistory={setHistory}
+        setHistoryDescription={setHistoryDescription}
+        historyDescription={historyDescription}
+      />
     </div>
   )
 }
