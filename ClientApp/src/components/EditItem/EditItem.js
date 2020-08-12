@@ -11,7 +11,8 @@ import {
 import {
   formatDate,
   handleChange,
-  convertName
+  convertName,
+  idToName
 } from "../APIOperations/Operations"
 import DeviceHistory from "../DeviceHistory/DeviceHistory"
 import { processDataToBack } from "../APIOperations/ProcessData"
@@ -42,13 +43,14 @@ const EditItem = ({ match }) => {
   const editData = data => {
     data["order_date"] = formatDate(data["order_date"])
     data["deliver_date"] = formatDate(data["deliver_date"])
-    if (staffs !== undefined) convertName(data, staffs)
+    // if (staffs !== undefined) convertName(data, staffs)
     setFormData(data)
   }
 
   const editHistory = data => {
     data.forEach(d => {
       d["action_date"] = formatDate(d["action_date"])
+      d["staff_id"] = idToName(d["staff_id"], staffs)
     })
     setHistory(data)
   }
@@ -80,6 +82,7 @@ const EditItem = ({ match }) => {
       <DeviceHistory
         id={id}
         history={history}
+        staffs={staffState}
         setHistory={setHistory}
         setHistoryDescription={setHistoryDescription}
         historyDescription={historyDescription}

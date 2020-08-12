@@ -5,7 +5,7 @@ const InputGenerator = ({ currentField, onChange, formData, staffs }) => {
   const txtArea = () => currentField.type === "textarea" && { rows: "4" }
 
   const defaultOption = () =>
-    !formData[currentField.name] ? (
+    !formData[currentField.name] && currentField.type === "select" ? (
       <option disabled selected value>
         {" "}
         -- select a staff --{" "}
@@ -55,14 +55,17 @@ const InputGenerator = ({ currentField, onChange, formData, staffs }) => {
         </Col>
         <Col md={5}>
           <Input
-            type={currentField.type[1]}
+            type='text'
+            list='currency_type'
             name={currentField.name[1]}
             onChange={onChange}
-            defaultValue={formData[currentField.name[1]]}>
-            <option value='aud'>AUD$</option>
-            <option value='rmb'>RMB￥</option>
-            <option value='usd'>USD$</option>
-          </Input>
+            defaultValue={formData[currentField.name[1]]}
+          />
+          <datalist id='currency_type'>
+            <option value='AUD' />
+            <option value='RMB' />
+            <option value='USD' />
+          </datalist>
         </Col>
       </Row>
     )

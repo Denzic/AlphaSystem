@@ -24,8 +24,8 @@ const checkInput = (name, value) => {
   if (name === "staff_id") return parseInt(value)
 }
 
-export const convertName = (formData, staff) => {
-  staff.forEach(s => {
+export const convertName = (formData, staffs) => {
+  staffs.forEach(s => {
     if (formData["order_staff"] === s.staff_id)
       formData["order_staff"] = s.first_name
   })
@@ -42,7 +42,7 @@ export const convertId = (formData, name, staff) => {
 export const idToName = (id, staffs) => {
   let name = ""
   staffs.map(staff => {
-    if (staff.device_id === id) name = staff.first_name
+    if (staff.staff_id === id) name = staff.first_name
   })
   return name
 }

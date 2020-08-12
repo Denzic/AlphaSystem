@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { postHistory } from "../APIOperations/HTTPOperations"
 import { handleChange } from "../APIOperations/Operations"
+import { processHistoryData } from "../APIOperations/ProcessData"
 import {
   Button,
   Modal,
@@ -12,7 +13,7 @@ import {
   Form
 } from "reactstrap"
 
-const HistoryModal = ({ id, setHistory }) => {
+const HistoryModal = ({ id, setHistory, staffs }) => {
   const [modal, setModal] = useState(false)
   const [historyInput, sethistoryInput] = useState({
     device_id: parseInt(id)
@@ -28,9 +29,24 @@ const HistoryModal = ({ id, setHistory }) => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    postHistory(historyInput)
+    const processedData = processHistoryData(historyInput, staffs)
+    postHistory(processedData)
     setHistory(prev => [...prev, historyInput])
   }
+
+  const defaultOption = () => (
+    <option disabled selected value>
+      {" "}
+      -- select a staff --{" "}
+    </option>
+  )
+
+  const renderOptions = () =>
+    staffs.map((staff, i) => (
+      <option key={i} value={staff.first_name}>
+        {staff.first_name}
+      </option>
+    ))
 
   return (
     <div>
@@ -43,26 +59,25 @@ const HistoryModal = ({ id, setHistory }) => {
             <Input
               type='date'
               name='action_date'
-              onChange={e => handleChange(sethistoryInput, e)}
-              defaultValue={historyInput["action_date"]}></Input>
+              onChange={e => handleChange(sethistoryInput, e)}></Input>
             <Label>Action</Label>
             <Input
               type='text'
               name='action'
-              onChange={e => handleChange(sethistoryInput, e)}
-              defaultValue={historyInput["action"]}></Input>
+              onChange={e => handleChange(sethistoryInput, e)}></Input>
             <Label>Staff</Label>
             <Input
-              type='text'
+              type='select'
               name='staff_id'
-              onChange={e => handleChange(sethistoryInput, e)}
-              defaultValue={historyInput["staff_id"]}></Input>
+              onChange={e => handleChange(sethistoryInput, e)}>
+              {defaultOption()}
+              {renderOptions()}
+            </Input>
             <Label>Description</Label>
             <Input
               type='textarea'
               name='description'
-              onChange={e => handleChange(sethistoryInput, e)}
-              defaultValue={historyInput["description"]}></Input>
+              onChange={e => handleChange(sethistoryInput, e)}></Input>
           </ModalBody>
           <ModalFooter>
             <Button color='primary' type='submit' onClick={toggle}>

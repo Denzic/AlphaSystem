@@ -52,7 +52,7 @@ const FormProvider = props => {
     {
       label: "Order Staff",
       name: "order_staff",
-      type: "text"
+      type: "select"
     },
     {
       label: "IP",

@@ -7,8 +7,9 @@ import PaginationComp from "../PaginationComp"
 const DeviceHistory = props => {
   const {
     id,
-    setHistory,
+    staffs,
     history,
+    setHistory,
     historyDescription,
     setHistoryDescription
   } = props
@@ -25,7 +26,7 @@ const DeviceHistory = props => {
   return (
     <>
       <h2>Device History</h2>
-      <HistoryModal id={id} setHistory={setHistory} />
+      <HistoryModal id={id} setHistory={setHistory} staffs={staffs} />
       <Row>
         <Col md={6}>
           <Table>
