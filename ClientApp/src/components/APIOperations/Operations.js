@@ -40,6 +40,7 @@ export const convertId = (formData, name, staff) => {
 }
 
 export const idToName = (id, staffs) => {
+  console.log(staffs)
   let name = ""
   staffs.map(staff => {
     if (staff.staff_id === id) name = staff.first_name

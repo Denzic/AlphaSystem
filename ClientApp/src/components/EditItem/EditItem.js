@@ -48,6 +48,7 @@ const EditItem = ({ match }) => {
   }
 
   const editHistory = data => {
+    console.log(data)
     data.forEach(d => {
       d["action_date"] = formatDate(d["action_date"])
       d["staff_id"] = idToName(d["staff_id"], staffs)
