@@ -4,7 +4,7 @@ import InputGenerator from "./InputGenerator"
 
 let count = -1
 
-const FormRow = ({ form, formData, onChange, staffs }) => {
+const FormRow = ({ form, formData, setFormData, staffs }) => {
   const colNumber = [1, 2, 3]
 
   return (
@@ -19,8 +19,8 @@ const FormRow = ({ form, formData, onChange, staffs }) => {
               <Label>{form[count].label}</Label>
               <InputGenerator
                 currentField={form[count]}
-                onChange={onChange}
                 formData={formData}
+                setFormData={setFormData}
                 staffs={staffs}
               />
             </FormGroup>

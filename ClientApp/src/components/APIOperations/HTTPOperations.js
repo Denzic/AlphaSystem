@@ -21,6 +21,7 @@ export const getDevice = async (editData, id) => {
 export const getHistory = async (editHistoryData, id) => {
   const response = await fetch(`inventory/history/${id}`)
   const data = await response.json()
+  // console.log(data)
   editHistoryData(data)
 }
 

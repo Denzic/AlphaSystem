@@ -10,17 +10,11 @@ const TotalItems = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [devicePerPage] = useState([15])
   const [staffState, setStaffState] = useState([])
-  let staffs = []
 
   useEffect(() => {
     getCrews(setDevices)
-    getStaffs(editStaffs)
+    getStaffs(setStaffState)
   }, [])
-
-  const editStaffs = staff => {
-    staffs = staff
-    setStaffState(staffs)
-  }
 
   let indexLast = currentPage * devicePerPage
   let indexFirst = indexLast - devicePerPage
@@ -51,7 +45,6 @@ const TotalItems = () => {
               <td>{d.type}</td>
               <td>{formatDate(d.deliver_date)}</td>
               <td>{idToName(d.for_staff, staffState)}</td>
-              {/* TODO: Edit page */}
               <td>
                 <Link to={`/EditItem/${d.device_id}`}>Edit</Link>
               </td>

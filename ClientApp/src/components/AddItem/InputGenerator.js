@@ -1,7 +1,8 @@
 import React from "react"
 import { Input, Col, Row } from "reactstrap"
+import { handleChange } from "../APIOperations/Operations"
 
-const InputGenerator = ({ currentField, onChange, formData, staffs }) => {
+const InputGenerator = ({ currentField, formData, setFormData, staffs }) => {
   const txtArea = () => currentField.type === "textarea" && { rows: "4" }
 
   const defaultOption = () =>
@@ -32,7 +33,7 @@ const InputGenerator = ({ currentField, onChange, formData, staffs }) => {
         <Input
           type={currentField.type}
           name={currentField.name}
-          onChange={onChange}
+          onChange={e => handleChange(setFormData, e)}
           defaultValue={formData[currentField.name]}
           {...txtArea()}>
           {defaultOption()}
@@ -49,7 +50,7 @@ const InputGenerator = ({ currentField, onChange, formData, staffs }) => {
           <Input
             type={currentField.type[0]}
             name={currentField.name[0]}
-            onChange={onChange}
+            onChange={e => handleChange(setFormData, e)}
             defaultValue={formData[currentField.name[0]]}
           />
         </Col>
@@ -58,7 +59,7 @@ const InputGenerator = ({ currentField, onChange, formData, staffs }) => {
             type='text'
             list='currency_type'
             name={currentField.name[1]}
-            onChange={onChange}
+            onChange={e => handleChange(setFormData, e)}
             defaultValue={formData[currentField.name[1]]}
           />
           <datalist id='currency_type'>
