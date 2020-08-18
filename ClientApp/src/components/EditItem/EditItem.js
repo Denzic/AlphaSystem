@@ -1,11 +1,12 @@
 import React, { useContext, useState, useEffect } from "react"
-import { Row, Button, Form, Label } from "reactstrap"
+import { Row, Button, Form, Label, Col } from "reactstrap"
 import FormRow from "../AddItem/FormRow"
 import { FormContext } from "../Context/FormContext"
 import { getDevice, update, getStaffs } from "../APIOperations/HTTPOperations"
-import { formatDate, handleChange } from "../APIOperations/Operations"
+import { formatDate } from "../APIOperations/Operations"
 import DeviceHistory from "../DeviceHistory/DeviceHistory"
 import { processDataToBack } from "../APIOperations/ProcessData"
+import DeleteModal from "./DeleteModal"
 
 const EditItem = ({ match }) => {
   const {
@@ -48,7 +49,12 @@ const EditItem = ({ match }) => {
             />
           </Row>
         ))}
-        <Button>Submit</Button>
+        <Row>
+          <Col md={2}>
+            <Button>Submit</Button>
+          </Col>
+          <DeleteModal formData={formData}>Delete</DeleteModal>
+        </Row>
       </Form>
 
       <DeviceHistory id={id} staffs={staffState} />
