@@ -1,6 +1,6 @@
 import React, { useState } from "react"
-import { postHistory } from "../APIOperations/HTTPOperations"
-import { handleChange } from "../APIOperations/Operations"
+import { updateHistory } from "../APIOperations/HTTPOperations"
+import { handleChange, formatDate } from "../APIOperations/Operations"
 import { processHistoryData } from "../APIOperations/ProcessData"
 import {
   Button,
@@ -13,11 +13,14 @@ import {
   Form
 } from "reactstrap"
 
-const HistoryModal = ({ id, setHistory, staffs }) => {
+const EditHistory = ({
+  staffs,
+  history,
+  setHistory,
+  currentHistory,
+  setCurrentHistory
+}) => {
   const [modal, setModal] = useState(false)
-  const [historyInput, sethistoryInput] = useState({
-    device_id: parseInt(id)
-  })
 
   const toggle = () => setModal(!modal)
 
@@ -29,9 +32,11 @@ const HistoryModal = ({ id, setHistory, staffs }) => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    const processedData = processHistoryData(historyInput, staffs)
-    postHistory(processedData)
-    setHistory(prev => [...prev, historyInput])
+    const processedData = processHistoryData(currentHistory, staffs)
+    updateHistory(processedData)
+    const temp = history
+    console.log(temp)
+    setHistory(temp)
   }
 
   const defaultOption = () => (
@@ -41,35 +46,40 @@ const HistoryModal = ({ id, setHistory, staffs }) => {
     </option>
   )
 
+  const selected = staff =>
+    currentHistory.staff_id === staff.staff_id && { selected: "selected" }
+
   const renderOptions = () =>
     staffs.map((staff, i) => (
-      <option key={i} value={staff.first_name}>
+      <option key={i} value={staff.first_name} {...selected(staff)}>
         {staff.first_name}
       </option>
     ))
 
   return (
     <div>
-      <Button onClick={toggle}>Add history</Button>
+      <Button onClick={toggle}>Edit</Button>
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader close={closeBtn}>Add History</ModalHeader>
+        <ModalHeader close={closeBtn}>Edit History</ModalHeader>
         <Form onSubmit={handleSubmit}>
           <ModalBody>
             <Label>Time</Label>
             <Input
               type='date'
               name='action_date'
-              onChange={e => handleChange(sethistoryInput, e)}></Input>
+              onChange={e => handleChange(setCurrentHistory, e)}
+              defaultValue={formatDate(currentHistory["action_date"])}></Input>
             <Label>Action</Label>
             <Input
               type='text'
               name='action'
-              onChange={e => handleChange(sethistoryInput, e)}></Input>
+              onChange={e => handleChange(setCurrentHistory, e)}
+              defaultValue={currentHistory["action"]}></Input>
             <Label>Staff</Label>
             <Input
               type='select'
               name='staff_id'
-              onChange={e => handleChange(sethistoryInput, e)}>
+              onChange={e => handleChange(setCurrentHistory, e)}>
               {defaultOption()}
               {renderOptions()}
             </Input>
@@ -77,7 +87,8 @@ const HistoryModal = ({ id, setHistory, staffs }) => {
             <Input
               type='textarea'
               name='description'
-              onChange={e => handleChange(sethistoryInput, e)}></Input>
+              onChange={e => handleChange(setCurrentHistory, e)}
+              defaultValue={currentHistory["description"]}></Input>
           </ModalBody>
           <ModalFooter>
             <Button color='primary' type='submit' onClick={toggle}>
@@ -93,4 +104,4 @@ const HistoryModal = ({ id, setHistory, staffs }) => {
   )
 }
 
-export default HistoryModal
+export default EditHistory

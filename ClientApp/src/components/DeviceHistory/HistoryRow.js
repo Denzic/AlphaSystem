@@ -1,10 +1,19 @@
 import React from "react"
 import { formatDate, idToName } from "../APIOperations/Operations"
 
-const HistoryRow = ({ h, index, history, setHistoryDescription, staffs }) => {
+const HistoryRow = props => {
+  const {
+    h,
+    index,
+    staffs,
+    history,
+    setCurrentHistory,
+    setHistoryDescription
+  } = props
   const showDescription = (setHistoryDescription, history, e) => {
-    const id = parseInt(e.target.parentNode.id)
-    setHistoryDescription(history[id].description)
+    const index = parseInt(e.target.parentNode.id)
+    setHistoryDescription(history[index].description)
+    setCurrentHistory(history[index])
   }
 
   return (

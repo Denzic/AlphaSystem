@@ -63,6 +63,18 @@ export const update = async formData => {
   console.log(response.status)
 }
 
+export const updateHistory = async history => {
+  const response = await fetch("inventory/puthistory", {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json;charset=UTF-8"
+    },
+    body: JSON.stringify(history)
+  })
+  console.log(response.status)
+}
+
 export const deleteDevice = async device => {
   const response = await fetch("inventory/delete", {
     method: "DELETE",

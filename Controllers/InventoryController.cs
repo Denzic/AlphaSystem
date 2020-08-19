@@ -69,18 +69,25 @@ namespace AlphaSystem.Controllers
       connection.Insert(history);
     }
 
-    [HttpDelete("delete")]
-    public void Delete([FromBody] Device device)
-    {
-      using var connection = new MySqlConnection(maxDb);
-      connection.Delete(device);
-    }
-
     [HttpPut("put")]
     public void Put([FromBody] Device device)
     {
       using var connection = new MySqlConnection(maxDb);
       connection.Update(device);
+    }
+
+    [HttpPut("puthistory")]
+    public void putHistory([FromBody] History history)
+    {
+      using var connection = new MySqlConnection(maxDb);
+      connection.Update(history);
+    }
+
+    [HttpDelete("delete")]
+    public void Delete([FromBody] Device device)
+    {
+      using var connection = new MySqlConnection(maxDb);
+      connection.Delete(device);
     }
   }
 }

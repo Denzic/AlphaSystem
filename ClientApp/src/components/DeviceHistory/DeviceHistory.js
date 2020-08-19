@@ -4,10 +4,12 @@ import HistoryModal from "./HistoryModal"
 import HistoryRow from "./HistoryRow"
 import PaginationComp from "../PaginationComp"
 import { getHistory } from "../APIOperations/HTTPOperations"
+import EditHistory from "./EditHistory"
 
 const DeviceHistory = ({ id, staffs }) => {
   const [history, setHistory] = useState([])
   const [historyDescription, setHistoryDescription] = useState("")
+  const [currentHistory, setCurrentHistory] = useState()
   const [currentPage, setCurrentPage] = useState(1)
   const [historyPerPage] = useState([10])
 
@@ -17,7 +19,7 @@ const DeviceHistory = ({ id, staffs }) => {
 
   let indexLast = currentPage * historyPerPage
   let indexFirst = indexLast - historyPerPage
-  let currentHistory = history.slice(indexFirst, indexLast)
+  let currentHistoryPage = history.slice(indexFirst, indexLast)
 
   const paginate = n => setCurrentPage(n)
 
@@ -38,13 +40,14 @@ const DeviceHistory = ({ id, staffs }) => {
               </tr>
             </thead>
             <tbody>
-              {currentHistory.map((h, index) => (
+              {currentHistoryPage.map((h, index) => (
                 <HistoryRow
                   key={index}
                   h={h}
                   index={index}
                   staffs={staffs}
                   history={history}
+                  setCurrentHistory={setCurrentHistory}
                   setHistoryDescription={setHistoryDescription}
                 />
               ))}
@@ -63,6 +66,15 @@ const DeviceHistory = ({ id, staffs }) => {
             type='textarea'
             rows='4'
             defaultValue={historyDescription}></Input>
+          {currentHistory !== undefined ? (
+            <EditHistory
+              staffs={staffs}
+              history={history}
+              setHistory={setHistory}
+              currentHistory={currentHistory}
+              setCurrentHistory={setCurrentHistory}
+            />
+          ) : null}
         </Col>
       </Row>
       <PaginationComp

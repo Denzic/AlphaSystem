@@ -18,5 +18,6 @@ export const processDataToBack = (formData, staffs) => {
 
 export const processHistoryData = (historyInput, staffs) => {
   historyInput["staff_id"] = nameToId(historyInput["staff_id"], staffs)
+  historyInput["action_date"] = formatDate(historyInput["action_date"])
   return historyInput
 }
