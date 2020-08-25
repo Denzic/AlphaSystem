@@ -8,13 +8,14 @@ import EditHistory from "./EditHistory"
 
 const DeviceHistory = ({ id, staffs }) => {
   const [history, setHistory] = useState([])
-  const [historyDescription, setHistoryDescription] = useState("")
-  const [currentHistory, setCurrentHistory] = useState()
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentHistory, setCurrentHistory] = useState({})
+
+  // Pagination states
   const [historyPerPage] = useState([10])
+  const [currentPage, setCurrentPage] = useState(1)
 
   useEffect(() => {
-    getHistory(setHistory, id)
+    getHistory(setHistory, id, () => {})
   }, [])
 
   let indexLast = currentPage * historyPerPage
@@ -48,7 +49,6 @@ const DeviceHistory = ({ id, staffs }) => {
                   staffs={staffs}
                   history={history}
                   setCurrentHistory={setCurrentHistory}
-                  setHistoryDescription={setHistoryDescription}
                 />
               ))}
             </tbody>
@@ -65,7 +65,7 @@ const DeviceHistory = ({ id, staffs }) => {
           <Input
             type='textarea'
             rows='4'
-            defaultValue={historyDescription}></Input>
+            defaultValue={currentHistory.description}></Input>
           {currentHistory !== undefined ? (
             <EditHistory
               staffs={staffs}

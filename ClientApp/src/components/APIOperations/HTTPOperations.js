@@ -23,6 +23,7 @@ export const getHistory = async (editHistoryData, id) => {
   const data = await response.json()
   // console.log(data)
   editHistoryData(data)
+  console.log(response.status)
 }
 
 export const post = async formData => {

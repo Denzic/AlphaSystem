@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { updateHistory } from "../APIOperations/HTTPOperations"
 import { handleChange, formatDate } from "../APIOperations/Operations"
 import { processHistoryData } from "../APIOperations/ProcessData"
@@ -34,9 +34,12 @@ const EditHistory = ({
     e.preventDefault()
     const processedData = processHistoryData(currentHistory, staffs)
     updateHistory(processedData)
-    const temp = history
-    console.log(temp)
-    setHistory(temp)
+
+    setHistory(prev =>
+      prev.map(item =>
+        item.history_id === currentHistory.history_id ? currentHistory : item
+      )
+    )
   }
 
   const defaultOption = () => (

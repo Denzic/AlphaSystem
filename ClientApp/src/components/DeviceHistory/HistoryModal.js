@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { postHistory } from "../APIOperations/HTTPOperations"
+import { postHistory, getHistory } from "../APIOperations/HTTPOperations"
 import { handleChange } from "../APIOperations/Operations"
 import { processHistoryData } from "../APIOperations/ProcessData"
 import {
@@ -27,11 +27,11 @@ const HistoryModal = ({ id, setHistory, staffs }) => {
     </button>
   )
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
     const processedData = processHistoryData(historyInput, staffs)
-    postHistory(processedData)
-    setHistory(prev => [...prev, historyInput])
+    await postHistory(processedData)
+    await getHistory(setHistory, id)
   }
 
   const defaultOption = () => (

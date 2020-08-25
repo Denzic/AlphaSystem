@@ -10,7 +10,7 @@ export const formatDate = dateString => {
 
 export const handleChange = (setInput, e) => {
   const { name, value } = e.target
-  console.log(value)
+  //console.log(value)
   setInput(prev => ({
     ...prev,
     [name]: checkInput(name, value) || value
