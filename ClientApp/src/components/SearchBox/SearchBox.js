@@ -1,10 +1,25 @@
 import React from "react"
 import { Input } from "reactstrap"
 
-const SearchBox = ({ devices, setFilter, setSearchString }) => {
+let firstTime = true
+
+const SearchBox = ({
+  devices,
+  setFiltered,
+  setSearchString,
+  type,
+  filtered
+}) => {
   const search = ({ target: { value } }) => {
-    const filtered = devices.filter(el => el.device_name.includes(value))
-    setFilter(filtered)
+    console.log(filtered)
+    let fil
+    let collection
+    firstTime ? (collection = devices) : (collection = filtered)
+    firstTime = false
+    fil = collection.filter(el =>
+      el[type] !== null ? el[type].includes(value) : null
+    )
+    setFiltered(fil)
     setSearchString(value)
   }
 

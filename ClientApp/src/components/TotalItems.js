@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import { Table } from "reactstrap"
+import { Table, Row, Col } from "reactstrap"
 import { getCrews, getStaffs } from "./APIOperations/HTTPOperations"
 import { idToName, formatDate } from "./APIOperations/Operations"
 import PaginationComp from "./PaginationComp"
@@ -8,7 +8,7 @@ import SearchBox from "./SearchBox/SearchBox"
 
 const TotalItems = () => {
   const [devices, setDevices] = useState([])
-  const [filter, setFilter] = useState([])
+  const [filtered, setFiltered] = useState([])
   const [searchString, setSearchString] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
   const [devicePerPage] = useState([15])
@@ -48,29 +48,79 @@ const TotalItems = () => {
     <div>
       <h1>Total Items</h1>
       <Link to='./AddItem'>Add Item +</Link>
-      <SearchBox
-        devices={devices}
-        setFilter={setFilter}
-        setSearchString={setSearchString}
-      />
+
       <Table>
         <thead>
           <tr>
             <th>#</th>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Deliver Date</th>
-            <th>For Staff</th>
+            <th>
+              <Row>
+                <Col md={4}>Name</Col>
+                <Col md={5}>
+                  <SearchBox
+                    devices={devices}
+                    setFiltered={setFiltered}
+                    setSearchString={setSearchString}
+                    type={"device_name"}
+                    filtered={filtered}
+                  />
+                </Col>
+              </Row>
+            </th>
+            <th>
+              <Row>
+                <Col md={4}>Type</Col>
+                <Col md={5}>
+                  <SearchBox
+                    devices={devices}
+                    setFiltered={setFiltered}
+                    setSearchString={setSearchString}
+                    type={"type"}
+                    filtered={filtered}
+                  />
+                </Col>
+              </Row>
+            </th>
+            <th>
+              <Row>
+                <Col md={6}>Deliver Date</Col>
+                <Col md={5}>
+                  <SearchBox
+                    devices={devices}
+                    setFiltered={setFiltered}
+                    setSearchString={setSearchString}
+                    type={"deliver_date"}
+                    filtered={filtered}
+                  />
+                </Col>
+              </Row>
+            </th>
+            <th>
+              <Row>
+                <Col md={5}>For Staff</Col>
+                <Col md={5}>
+                  <SearchBox
+                    devices={devices}
+                    setFiltered={setFiltered}
+                    setSearchString={setSearchString}
+                    type={"for_staff"}
+                    filtered={filtered}
+                  />
+                </Col>
+              </Row>
+            </th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          {searchString === "" ? renderDevices(devices) : renderDevices(filter)}
+          {searchString === ""
+            ? renderDevices(devices)
+            : renderDevices(filtered)}
         </tbody>
       </Table>
       <PaginationComp
         itemPerPage={devicePerPage}
-        totalItems={searchString === "" ? devices.length : filter.length}
+        totalItems={searchString === "" ? devices.length : filtered.length}
         paginate={paginate}
       />
     </div>
