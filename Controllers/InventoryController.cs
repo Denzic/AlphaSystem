@@ -16,7 +16,24 @@ namespace AlphaSystem.Controllers
   public class InventoryController : ControllerBase
   {
     private readonly ILogger<InventoryController> _logger;
-    private readonly string maxDb = "Server=localhost;Database=max_devices;Uid=root;Password=Cf222222;";
+    private readonly string maxDb = "Server=localhost;Database=max_devices;Uid=root;Password=op930917;";
+
+    private readonly string devicesQueryHead = @"
+    SELECT
+      device_id, type, brand, original_feature, order_date, deliver_date, 
+      order_website, order_reason, price, currency, invoice_no, sl3.first_name AS approved_by, 
+      location_no, locate_staff, device_ip, access_type, stock_amount, memo, device_name, 
+      sl1.first_name AS order_staff, sl2.first_name AS for_staff
+    FROM
+        device_main main
+            Left JOIN
+        staff_list sl1 ON main.order_staff = sl1.staff_id
+    Left JOIN
+        staff_list sl2 ON main.for_staff = sl2.staff_id
+          Left JOIN
+        staff_list sl3 ON main.approved_by = sl3.staff_id
+        ";
+    private readonly string devicesQueryEnd = "ORDER BY main.device_id;";
 
     public InventoryController(ILogger<InventoryController> logger)
     {
@@ -24,10 +41,12 @@ namespace AlphaSystem.Controllers
     }
 
     [HttpGet("devices")]
-    public IEnumerable<Device> GetDevices()
+    public IEnumerable<DeviceDTO> GetDevices()
     {
       using var connection = new MySqlConnection(maxDb);
-      var data = connection.GetAll<Device>();
+      // var data = connection.GetAll<Device>();
+      // return data;
+      var data = connection.Query<DeviceDTO>(devicesQueryHead + devicesQueryEnd);
       return data;
     }
 
@@ -48,10 +67,10 @@ namespace AlphaSystem.Controllers
     }
 
     [HttpGet("device/{id}")]
-    public Device GetDevice(int id)
+    public DeviceDTO GetDevice(int id)
     {
       using var connection = new MySqlConnection(maxDb);
-      var data = connection.Get<Device>(id);
+      var data = connection.QueryFirst<DeviceDTO>(devicesQueryHead + " WHERE device_id = @id " + devicesQueryEnd, new { id = id });
       return data;
     }
 
@@ -69,6 +88,13 @@ namespace AlphaSystem.Controllers
       connection.Insert(history);
     }
 
+    [HttpDelete("delete")]
+    public void Delete([FromBody] Device device)
+    {
+      using var connection = new MySqlConnection(maxDb);
+      connection.Delete(device);
+    }
+
     [HttpPut("put")]
     public void Put([FromBody] Device device)
     {
@@ -81,13 +107,6 @@ namespace AlphaSystem.Controllers
     {
       using var connection = new MySqlConnection(maxDb);
       connection.Update(history);
-    }
-
-    [HttpDelete("delete")]
-    public void Delete([FromBody] Device device)
-    {
-      using var connection = new MySqlConnection(maxDb);
-      connection.Delete(device);
     }
   }
 }

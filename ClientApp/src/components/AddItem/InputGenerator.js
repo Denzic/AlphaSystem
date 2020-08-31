@@ -4,41 +4,53 @@ import { handleChange } from "../APIOperations/Operations"
 
 const InputGenerator = ({ currentField, formData, setFormData, staffs }) => {
   const txtArea = () => currentField.type === "textarea" && { rows: "4" }
-
-  const defaultOption = () =>
-    !formData[currentField.name] && currentField.type === "select" ? (
-      <option disabled selected value>
-        {" "}
-        -- select a staff --{" "}
-      </option>
-    ) : null
-
-  const selected = staff =>
-    formData[currentField.name] === staff.staff_id
-      ? { selected: "selected" }
+  const staffList = () =>
+    currentField.name === "for_staff" ||
+    currentField.name === "approved_by" ||
+    currentField.name === "order_staff"
+      ? { list: "staff_list" }
       : null
 
-  const renderOptions = () =>
-    currentField.type === "select"
-      ? staffs.map((staff, i) => (
-          <option key={i} value={staff.first_name} {...selected(staff)}>
-            {staff.first_name}
-          </option>
-        ))
-      : null
+  // const defaultOption = () =>
+  //   !formData[currentField.name] && currentField.type === "select" ? (
+  //     <option disabled selected value>
+  //       {" "}
+  //       -- select a staff --{" "}
+  //     </option>
+  //   ) : null
+
+  // const selected = staff =>
+  //   formData[currentField.name] === staff.staff_id
+  //     ? { selected: "selected" }
+  //     : null
+
+  // const renderOptions = () =>
+  //   currentField.type === "select"
+  //     ? staffs.map((staff, i) => (
+  //         <option key={i} value={staff.first_name} {...selected(staff)}>
+  //           {staff.first_name}
+  //         </option>
+  //       ))
+  //     : null
 
   const renderInput = () => {
     if (!Array.isArray(currentField.name))
       return (
-        <Input
-          type={currentField.type}
-          name={currentField.name}
-          onChange={e => handleChange(setFormData, e)}
-          defaultValue={formData[currentField.name]}
-          {...txtArea()}>
-          {defaultOption()}
-          {renderOptions()}
-        </Input>
+        <>
+          <Input
+            type={currentField.type}
+            name={currentField.name}
+            onChange={e => handleChange(setFormData, e)}
+            defaultValue={formData[currentField.name]}
+            {...txtArea()}
+            {...staffList()}
+          />
+          <datalist id='staff_list'>
+            {staffs.map(staff => (
+              <option value={staff.first_name}></option>
+            ))}
+          </datalist>
+        </>
       )
     else return renderSpecialInput()
   }

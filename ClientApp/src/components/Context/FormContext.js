@@ -32,7 +32,7 @@ const FormProvider = props => {
     {
       label: "For Staff",
       name: "for_staff",
-      type: "select"
+      type: "text"
     },
     {
       label: "Brand",
@@ -52,7 +52,7 @@ const FormProvider = props => {
     {
       label: "Order Staff",
       name: "order_staff",
-      type: "select"
+      type: "text"
     },
     {
       label: "IP",
@@ -62,8 +62,7 @@ const FormProvider = props => {
     {
       label: "Price",
       name: ["price", "currency"],
-      type: ["text", "select"],
-      options: ["Jennifer", "Larry"]
+      type: ["text", "select"]
     },
     {
       label: "Access Type",
@@ -78,8 +77,7 @@ const FormProvider = props => {
     {
       label: "Approved By",
       name: "approved_by",
-      type: "select",
-      option: ["Larry", "Jeniffer"]
+      type: "text"
     },
     {
       label: "Original Feature",

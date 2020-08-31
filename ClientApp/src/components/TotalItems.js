@@ -36,7 +36,6 @@ const TotalItems = () => {
         <td>{d.device_name}</td>
         <td>{d.type}</td>
         <td>{formatDate(d.deliver_date)}</td>
-        {/* <td>{idToName(d.for_staff, staffs)}</td> */}
         <td>{d.for_staff}</td>
         <td>
           <Link to={`/EditItem/${d.device_id}`}>Edit</Link>
@@ -64,7 +63,6 @@ const TotalItems = () => {
                     setSearchString={setSearchString}
                     type={"device_name"}
                     filtered={filtered}
-                    staffs={staffs}
                   />
                 </Col>
               </Row>
@@ -79,7 +77,6 @@ const TotalItems = () => {
                     setSearchString={setSearchString}
                     type={"type"}
                     filtered={filtered}
-                    staffs={staffs}
                   />
                 </Col>
               </Row>
@@ -94,7 +91,6 @@ const TotalItems = () => {
                     setSearchString={setSearchString}
                     type={"deliver_date"}
                     filtered={filtered}
-                    staffs={staffs}
                   />
                 </Col>
               </Row>
@@ -102,7 +98,15 @@ const TotalItems = () => {
             <th>
               <Row>
                 <Col md={5}>For Staff</Col>
-                <Col md={5}></Col>
+                <Col md={5}>
+                  <SearchBox
+                    devices={devices}
+                    setFiltered={setFiltered}
+                    setSearchString={setSearchString}
+                    type={"for_staff"}
+                    filtered={filtered}
+                  />
+                </Col>
               </Row>
             </th>
             <th></th>
