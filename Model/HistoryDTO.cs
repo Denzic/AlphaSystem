@@ -3,7 +3,7 @@ using Dapper.Contrib.Extensions;
 namespace AlphaSystem
 {
   [Table("device_history")]
-  public class History
+  public class HistoryDTO
   {
     [Key]
     public int History_id { get; set; }
@@ -11,6 +11,6 @@ namespace AlphaSystem
     public string Action { get; set; }
     public string Description { get; set; }
     public int Device_id { get; set; }
-    public int Operator { get; set; }
+    public string Operator { get; set; }
   }
 }

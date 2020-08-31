@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { Table, Row, Col } from "reactstrap"
-import { getDevices, getStaffs } from "./APIOperations/HTTPOperations"
-import { idToName, formatDate } from "./APIOperations/Operations"
+import { getDevices } from "./APIOperations/HTTPOperations"
+import { formatDate } from "./APIOperations/Operations"
 import PaginationComp from "./PaginationComp"
 import SearchBox from "./SearchBox/SearchBox"
 
@@ -12,11 +12,9 @@ const TotalItems = () => {
   const [searchString, setSearchString] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
   const [devicePerPage] = useState([15])
-  const [staffs, setStaffs] = useState([])
 
   useEffect(() => {
     getDevices(setDevices)
-    getStaffs(setStaffs)
   }, [])
 
   const getCurrentDevices = items => {
@@ -25,7 +23,6 @@ const TotalItems = () => {
     let currentDevices = items.slice(indexFirst, indexLast)
     return currentDevices
   }
-
   const paginate = n => setCurrentPage(n)
 
   const renderDevices = items => {

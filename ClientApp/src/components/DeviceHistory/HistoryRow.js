@@ -12,7 +12,7 @@ const HistoryRow = ({ h, index, staffs, history, setCurrentHistory }) => {
       <tr key={index} id={index} onClick={showDescription}>
         <td>{formatDate(h.action_date)}</td>
         <td>{h.action}</td>
-        <td>{idToName(h.staff_id, staffs)}</td>
+        <td>{idToName(h.operator, staffs)}</td>
       </tr>
     </>
   )

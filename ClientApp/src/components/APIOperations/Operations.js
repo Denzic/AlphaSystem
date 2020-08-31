@@ -10,7 +10,7 @@ export const formatDate = dateString => {
 
 export const handleChange = (setInput, e) => {
   const { name, value } = e.target
-  //console.log(value)
+  console.log(value)
   setInput(prev => ({
     ...prev,
     [name]: checkInput(name, value) || value
@@ -20,25 +20,10 @@ export const handleChange = (setInput, e) => {
 const checkInput = (name, value) => {
   if (name === "price") return parseInt(value)
   if (name === "order_staff") return parseInt(value)
-  if (name === "staff_id") return parseInt(value)
-}
-
-export const convertName = (formData, staffs) => {
-  staffs.forEach(s => {
-    if (formData["order_staff"] === s.staff_id)
-      formData["order_staff"] = s.first_name
-  })
-}
-
-export const convertId = (formData, name, staff) => {
-  staff.forEach(s => {
-    if (formData["order_staff"] === s.staff_id)
-      formData["order_staff"] = s.first_name
-  })
-  return formData["order_staff"]
 }
 
 export const idToName = (id, staffs) => {
+  if (!parseInt(id)) return id
   let name = ""
   staffs.forEach(staff => {
     if (staff.staff_id === id) name = staff.first_name

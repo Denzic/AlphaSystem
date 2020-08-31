@@ -15,7 +15,6 @@ import {
 
 const EditHistory = ({
   staffs,
-  history,
   setHistory,
   currentHistory,
   setCurrentHistory
@@ -30,34 +29,16 @@ const EditHistory = ({
     </button>
   )
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
-    const processedData = processHistoryData(currentHistory, staffs)
-    updateHistory(processedData)
-
     setHistory(prev =>
       prev.map(item =>
         item.history_id === currentHistory.history_id ? currentHistory : item
       )
     )
+    const processedData = processHistoryData(currentHistory, staffs)
+    updateHistory(processedData)
   }
-
-  const defaultOption = () => (
-    <option disabled selected value>
-      {" "}
-      -- select a staff --{" "}
-    </option>
-  )
-
-  const selected = staff =>
-    currentHistory.staff_id === staff.staff_id && { selected: "selected" }
-
-  const renderOptions = () =>
-    staffs.map((staff, i) => (
-      <option key={i} value={staff.first_name} {...selected(staff)}>
-        {staff.first_name}
-      </option>
-    ))
 
   return (
     <div>
@@ -71,27 +52,35 @@ const EditHistory = ({
               type='date'
               name='action_date'
               onChange={e => handleChange(setCurrentHistory, e)}
-              defaultValue={formatDate(currentHistory["action_date"])}></Input>
+              defaultValue={formatDate(currentHistory["action_date"])}
+            />
             <Label>Action</Label>
             <Input
               type='text'
               name='action'
               onChange={e => handleChange(setCurrentHistory, e)}
-              defaultValue={currentHistory["action"]}></Input>
+              defaultValue={currentHistory["action"]}
+            />
             <Label>Staff</Label>
             <Input
-              type='select'
-              name='staff_id'
-              onChange={e => handleChange(setCurrentHistory, e)}>
-              {defaultOption()}
-              {renderOptions()}
-            </Input>
+              type='text'
+              name='operator'
+              onChange={e => handleChange(setCurrentHistory, e)}
+              defaultValue={currentHistory["operator"]}
+              list='staff_list'
+            />
+            <datalist id='staff_list'>
+              {staffs.map((staff, i) => (
+                <option key={i} value={staff.first_name} />
+              ))}
+            </datalist>
             <Label>Description</Label>
             <Input
               type='textarea'
               name='description'
               onChange={e => handleChange(setCurrentHistory, e)}
-              defaultValue={currentHistory["description"]}></Input>
+              defaultValue={currentHistory["description"]}
+            />
           </ModalBody>
           <ModalFooter>
             <Button color='primary' type='submit' onClick={toggle}>

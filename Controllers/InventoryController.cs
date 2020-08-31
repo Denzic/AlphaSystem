@@ -35,6 +35,15 @@ namespace AlphaSystem.Controllers
         ";
     private readonly string devicesQueryEnd = "ORDER BY main.device_id;";
 
+    private readonly string historyQuery = @"
+    SELECT history_id, action, description, device_id, action_date, sl.first_name AS operator
+    FROM device_history dh
+	    Left join 
+    staff_list sl ON dh.operator = sl.staff_id
+    Where device_id = @id
+    Order By history_id;
+    ";
+
     public InventoryController(ILogger<InventoryController> logger)
     {
       _logger = logger;
@@ -51,10 +60,10 @@ namespace AlphaSystem.Controllers
     }
 
     [HttpGet("history/{device_id}")]
-    public IEnumerable<History> GetHistory(int device_id)
+    public IEnumerable<HistoryDTO> GetHistory(int device_id)
     {
       using var connection = new MySqlConnection(maxDb);
-      var data = connection.Query<History>($"SELECT * FROM device_history WHERE  device_id = @id", new { id = device_id });
+      var data = connection.Query<HistoryDTO>(historyQuery, new { id = device_id });
       return data;
     }
 
@@ -89,10 +98,10 @@ namespace AlphaSystem.Controllers
     }
 
     [HttpDelete("delete")]
-    public void Delete([FromBody] Device device)
+    public void Delete([FromBody] DeviceDTO deviceDTO)
     {
       using var connection = new MySqlConnection(maxDb);
-      connection.Delete(device);
+      connection.Delete(deviceDTO);
     }
 
     [HttpPut("put")]

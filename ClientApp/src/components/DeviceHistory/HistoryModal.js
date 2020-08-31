@@ -33,25 +33,16 @@ const HistoryModal = ({ id, setHistory, staffs }) => {
     const processedData = processHistoryData(historyInput, staffs)
     await postHistory(processedData)
     await getHistory(setHistory, id)
+    sethistoryInput({
+      device_id: parseInt(id)
+    })
   }
-
-  const defaultOption = () => (
-    <option disabled selected value>
-      {" "}
-      -- select a staff --{" "}
-    </option>
-  )
-
-  const renderOptions = () =>
-    staffs.map((staff, i) => (
-      <option key={i} value={staff.first_name}>
-        {staff.first_name}
-      </option>
-    ))
 
   return (
     <div>
-      <Link onClick={toggle}>Add history +</Link>
+      <Link to='#' onClick={toggle}>
+        Add history +
+      </Link>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader close={closeBtn}>Add History</ModalHeader>
         <Form onSubmit={handleSubmit}>
@@ -68,12 +59,16 @@ const HistoryModal = ({ id, setHistory, staffs }) => {
               onChange={e => handleChange(sethistoryInput, e)}></Input>
             <Label>Staff</Label>
             <Input
-              type='select'
-              name='staff_id'
-              onChange={e => handleChange(sethistoryInput, e)}>
-              {defaultOption()}
-              {renderOptions()}
-            </Input>
+              type='text'
+              name='operator'
+              onChange={e => handleChange(sethistoryInput, e)}
+              list='staff_list'
+            />
+            <datalist id='staff_list'>
+              {staffs.map((staff, i) => (
+                <option key={i} value={staff.first_name} />
+              ))}
+            </datalist>
             <Label>Description</Label>
             <Input
               type='textarea'

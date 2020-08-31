@@ -65,7 +65,9 @@ const DeviceHistory = ({ id, staffs }) => {
           <Input
             type='textarea'
             rows='4'
-            defaultValue={currentHistory.description}></Input>
+            defaultValue={
+              currentHistory === undefined ? null : currentHistory.description
+            }></Input>
           {currentHistory !== undefined ? (
             <EditHistory
               staffs={staffs}
