@@ -1,4 +1,4 @@
-export const getCrews = async setDevices => {
+export const getDevices = async setDevices => {
   const response = await fetch(`inventory/devices`)
   const data = await response.json()
   setDevices(data)

@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { postHistory, getHistory } from "../APIOperations/HTTPOperations"
 import { handleChange } from "../APIOperations/Operations"
 import { processHistoryData } from "../APIOperations/ProcessData"
+import { Link } from "react-router-dom"
 import {
   Button,
   Modal,
@@ -50,7 +51,7 @@ const HistoryModal = ({ id, setHistory, staffs }) => {
 
   return (
     <div>
-      <Button onClick={toggle}>Add history</Button>
+      <Link onClick={toggle}>Add history +</Link>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader close={closeBtn}>Add History</ModalHeader>
         <Form onSubmit={handleSubmit}>

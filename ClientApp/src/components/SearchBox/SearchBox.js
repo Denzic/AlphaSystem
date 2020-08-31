@@ -1,23 +1,11 @@
 import React from "react"
 import { Input } from "reactstrap"
+import { nameToId, idToName } from "../APIOperations/Operations"
 
-let firstTime = true
-
-const SearchBox = ({
-  devices,
-  setFiltered,
-  setSearchString,
-  type,
-  filtered
-}) => {
+const SearchBox = ({ devices, setFiltered, setSearchString, type, staffs }) => {
   const search = ({ target: { value } }) => {
-    console.log(filtered)
-    let fil
-    let collection
-    firstTime ? (collection = devices) : (collection = filtered)
-    firstTime = false
-    fil = collection.filter(el =>
-      el[type] !== null ? el[type].includes(value) : null
+    const fil = devices.filter(el =>
+      el[type] !== null ? el[type].toLowerCase().includes(value) : null
     )
     setFiltered(fil)
     setSearchString(value)

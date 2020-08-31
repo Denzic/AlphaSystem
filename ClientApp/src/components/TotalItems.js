@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { Table, Row, Col } from "reactstrap"
-import { getCrews, getStaffs } from "./APIOperations/HTTPOperations"
+import { getDevices, getStaffs } from "./APIOperations/HTTPOperations"
 import { idToName, formatDate } from "./APIOperations/Operations"
 import PaginationComp from "./PaginationComp"
 import SearchBox from "./SearchBox/SearchBox"
@@ -12,11 +12,11 @@ const TotalItems = () => {
   const [searchString, setSearchString] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
   const [devicePerPage] = useState([15])
-  const [staffState, setStaffState] = useState([])
+  const [staffs, setStaffs] = useState([])
 
   useEffect(() => {
-    getCrews(setDevices)
-    getStaffs(setStaffState)
+    getDevices(setDevices)
+    getStaffs(setStaffs)
   }, [])
 
   const getCurrentDevices = items => {
@@ -36,7 +36,8 @@ const TotalItems = () => {
         <td>{d.device_name}</td>
         <td>{d.type}</td>
         <td>{formatDate(d.deliver_date)}</td>
-        <td>{idToName(d.for_staff, staffState)}</td>
+        {/* <td>{idToName(d.for_staff, staffs)}</td> */}
+        <td>{d.for_staff}</td>
         <td>
           <Link to={`/EditItem/${d.device_id}`}>Edit</Link>
         </td>
@@ -63,6 +64,7 @@ const TotalItems = () => {
                     setSearchString={setSearchString}
                     type={"device_name"}
                     filtered={filtered}
+                    staffs={staffs}
                   />
                 </Col>
               </Row>
@@ -77,6 +79,7 @@ const TotalItems = () => {
                     setSearchString={setSearchString}
                     type={"type"}
                     filtered={filtered}
+                    staffs={staffs}
                   />
                 </Col>
               </Row>
@@ -91,6 +94,7 @@ const TotalItems = () => {
                     setSearchString={setSearchString}
                     type={"deliver_date"}
                     filtered={filtered}
+                    staffs={staffs}
                   />
                 </Col>
               </Row>
@@ -98,15 +102,7 @@ const TotalItems = () => {
             <th>
               <Row>
                 <Col md={5}>For Staff</Col>
-                <Col md={5}>
-                  <SearchBox
-                    devices={devices}
-                    setFiltered={setFiltered}
-                    setSearchString={setSearchString}
-                    type={"for_staff"}
-                    filtered={filtered}
-                  />
-                </Col>
+                <Col md={5}></Col>
               </Row>
             </th>
             <th></th>
