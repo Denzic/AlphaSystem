@@ -10,8 +10,6 @@ const TotalItems = () => {
   const [devices, setDevices] = useState([])
   const [filtered, setFiltered] = useState([])
   const [searchString, setSearchString] = useState("")
-
-  // For pagenation
   const [currentPage, setCurrentPage] = useState(1)
   const [devicePerPage] = useState([15])
 
