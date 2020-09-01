@@ -16,7 +16,7 @@ namespace AlphaSystem.Controllers
   public class InventoryController : ControllerBase
   {
     private readonly ILogger<InventoryController> _logger;
-    private readonly string maxDb = "Server=localhost;Database=max_devices;Uid=root;Password=op930917;";
+    private readonly string maxDb = "Server=localhost;Database=max_devices;Uid=root;Password=Cf222222;";
 
     private readonly string devicesQueryHead = @"
     SELECT

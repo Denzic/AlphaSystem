@@ -10,6 +10,16 @@ const FormProvider = props => {
       type: "text"
     },
     {
+      label: "Type",
+      name: "type",
+      type: "text"
+    },
+    {
+      label: "Order Staff",
+      name: "order_staff",
+      type: "text"
+    },
+    {
       label: "Order Date",
       name: "order_date",
       type: "date"
@@ -17,11 +27,6 @@ const FormProvider = props => {
     {
       label: "Location",
       name: "location_no",
-      type: "text"
-    },
-    {
-      label: "Type",
-      name: "type",
       type: "text"
     },
     {
@@ -47,11 +52,6 @@ const FormProvider = props => {
     {
       label: "Device Number",
       name: "device_number",
-      type: "text"
-    },
-    {
-      label: "Order Staff",
-      name: "order_staff",
       type: "text"
     },
     {

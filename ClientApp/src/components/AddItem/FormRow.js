@@ -1,5 +1,5 @@
 import React from "react"
-import { Col, FormGroup, Label } from "reactstrap"
+import { Row, Col, FormGroup, Label } from "reactstrap"
 import InputGenerator from "./InputGenerator"
 
 let count = -1
@@ -11,20 +11,22 @@ const FormRow = ({ form, formData, setFormData, staffs }) => {
     <>
       {colNumber.map((n, index) => (
         <Col md={4} key={index}>
-          <Col md={12}>
-            <FormGroup>
+          <Row style={{ marginBottom: "1.5rem" }}>
+            <Col md={5}>
               <div style={{ display: "none" }}>
                 {count === 17 ? (count = 0) : count++}
               </div>
               <Label>{form[count].label}</Label>
+            </Col>
+            <Col md={7}>
               <InputGenerator
                 currentField={form[count]}
                 formData={formData}
                 setFormData={setFormData}
                 staffs={staffs}
               />
-            </FormGroup>
-          </Col>
+            </Col>
+          </Row>
         </Col>
       ))}
     </>
