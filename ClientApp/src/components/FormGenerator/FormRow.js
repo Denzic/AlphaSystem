@@ -13,6 +13,7 @@ const FormRow = ({ form, formData, setFormData, staffs }) => {
         <Col md={4} key={index}>
           <Row style={{ marginBottom: "1.5rem" }}>
             <Col md={5}>
+              {/* Count || reset which input to render */}
               <div style={{ display: "none" }}>
                 {count === 17 ? (count = 0) : count++}
               </div>

@@ -10,6 +10,7 @@ const DeleteModal = ({ formData }) => {
   const toggle = () => setModal(!modal)
 
   const handleDelete = e => {
+    // delete the device and redirect to TotalItems
     deleteDevice(formData)
     toggle()
     history.push("/TotalItems")

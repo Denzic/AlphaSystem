@@ -26,10 +26,9 @@ const TotalItems = () => {
     let currentDevices = items.slice(indexFirst, indexLast)
     return currentDevices
   }
-  // change current page onClick
+  // change current page
   const paginate = n => setCurrentPage(n)
 
-  //
   const renderDevices = items => {
     const collection = getCurrentDevices(items)
     return collection.map((d, index) => (
@@ -51,12 +50,12 @@ const TotalItems = () => {
       <h1>Total Items</h1>
       <Link to='./AddItem'>Add Item +</Link>
 
-      {/* Table head with search box */}
       <Table>
         <thead>
           <tr>
             <th>#</th>
             <th>
+              {/* Table head with search box */}
               <Row>
                 <Col md={4}>Name</Col>
                 <Col md={5}>

@@ -4,6 +4,7 @@ import { handleChange } from "../APIOperations/Operations"
 
 const InputGenerator = ({ currentField, formData, setFormData, staffs }) => {
   const txtArea = () => currentField.type === "textarea" && { rows: "4" }
+
   const staffList = () =>
     currentField.name === "for_staff" ||
     currentField.name === "approved_by" ||
@@ -12,6 +13,7 @@ const InputGenerator = ({ currentField, formData, setFormData, staffs }) => {
       : null
 
   const renderInput = () => {
+    // render if it's not "price"
     if (!Array.isArray(currentField.name))
       return (
         <>
@@ -20,9 +22,12 @@ const InputGenerator = ({ currentField, formData, setFormData, staffs }) => {
             name={currentField.name}
             onChange={e => handleChange(setFormData, e)}
             defaultValue={formData[currentField.name]}
+            // make textArea taller
             {...txtArea()}
+            // add staff list to where needed
             {...staffList()}
           />
+          {/* generate staff list */}
           <datalist id='staff_list'>
             {staffs.map((staff, i) => (
               <option key={i} value={staff.first_name}></option>
@@ -30,6 +35,7 @@ const InputGenerator = ({ currentField, formData, setFormData, staffs }) => {
           </datalist>
         </>
       )
+    // render if it's "price field"
     else return renderSpecialInput()
   }
 

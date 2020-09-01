@@ -46,6 +46,7 @@ const EditHistory = ({
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader close={closeBtn}>Edit History</ModalHeader>
         <Form onSubmit={handleSubmit}>
+          {/* Modal with selected history data to be edited */}
           <ModalBody>
             <Label>Time</Label>
             <Input

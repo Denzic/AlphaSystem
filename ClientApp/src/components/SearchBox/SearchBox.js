@@ -10,6 +10,7 @@ const SearchBox = ({ devices, setFiltered, setSearchString, type }) => {
     setSearchString(value)
   }
 
+  // filter devices on each key press
   return <Input onChange={search}></Input>
 }
 

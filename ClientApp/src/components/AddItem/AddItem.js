@@ -18,7 +18,9 @@ const AddItem = () => {
 
   const handleSubmit = e => {
     e.preventDefault()
+    // process data to be send to database
     const processeData = processDataToBack(formData, staffState)
+    // loop for batch input
     for (let i = 0; i < numberOfbatch; i++) {
       post(processeData)
     }
@@ -26,6 +28,7 @@ const AddItem = () => {
     console.log(formData)
   }
 
+  // control batch number
   const batchInput = e => {
     setNumberOfbatch(parseInt(e.target.value) || 1)
   }
@@ -37,6 +40,7 @@ const AddItem = () => {
           <h1>Add Item</h1>
         </Col>
         <Col md={3}>
+          {/* render batch input */}
           <Label style={{ marginRight: "20px" }}>Batch Input</Label>
           <Input
             type='text'
@@ -48,6 +52,7 @@ const AddItem = () => {
       </Row>
 
       <Form onSubmit={handleSubmit}>
+        {/* render input fields */}
         {rowNumber.map((n, index) => (
           <Row form key={index}>
             <FormRow

@@ -23,6 +23,7 @@ const EditItem = ({ match }) => {
   }, [])
 
   const editData = data => {
+    // change date formate before assign to state
     data["order_date"] = formatDate(data["order_date"])
     data["deliver_date"] = formatDate(data["deliver_date"])
     setFormData(data)
@@ -30,6 +31,7 @@ const EditItem = ({ match }) => {
 
   const handleSubmit = async e => {
     e.preventDefault()
+    // prepare data to be send to database
     const processedData = processDataToBack(formData, staffState)
     update(processedData)
   }
@@ -39,6 +41,7 @@ const EditItem = ({ match }) => {
       <h1>Edit Item</h1>
       <Label>ID: {id}</Label>
       <Form onSubmit={handleSubmit}>
+        {/* render input fields with data */}
         {rowNumber.map((n, index) => (
           <Row form key={index}>
             <FormRow

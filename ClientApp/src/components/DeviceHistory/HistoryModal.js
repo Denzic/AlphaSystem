@@ -32,7 +32,9 @@ const HistoryModal = ({ id, setHistory, staffs }) => {
     e.preventDefault()
     const processedData = processHistoryData(historyInput, staffs)
     await postHistory(processedData)
+    // reload the state after new entry's been added
     await getHistory(setHistory, id)
+    // clear state
     sethistoryInput({
       device_id: parseInt(id)
     })
@@ -46,6 +48,7 @@ const HistoryModal = ({ id, setHistory, staffs }) => {
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader close={closeBtn}>Add History</ModalHeader>
         <Form onSubmit={handleSubmit}>
+          {/* Modal which is for adding history */}
           <ModalBody>
             <Label>Time</Label>
             <Input

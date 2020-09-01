@@ -41,6 +41,7 @@ const DeviceHistory = ({ id, staffs }) => {
               </tr>
             </thead>
             <tbody>
+              {/* for displaying all history */}
               {currentHistoryPage.map((h, index) => (
                 <HistoryRow
                   key={index}
@@ -62,12 +63,14 @@ const DeviceHistory = ({ id, staffs }) => {
               </tr>
             </thead>
           </Table>
+          {/* Display history description */}
           <Input
             type='textarea'
             rows='4'
             defaultValue={
               currentHistory === undefined ? null : currentHistory.description
             }></Input>
+          {/* render edit history */}
           {currentHistory !== undefined ? (
             <EditHistory
               staffs={staffs}
