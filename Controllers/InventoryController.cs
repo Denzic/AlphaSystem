@@ -16,8 +16,7 @@ namespace AlphaSystem.Controllers
   public class InventoryController : ControllerBase
   {
     private readonly ILogger<InventoryController> _logger;
-    private readonly string maxDb = "Server=localhost;Database=max_devices;Uid=root;Password=Cf222222;";
-
+    private readonly string maxDb = "Server=localhost;Database=max_devices;Uid=root;Password=op930917;";
     private readonly string devicesQueryHead = @"
     SELECT
       device_id, type, brand, original_feature, order_date, deliver_date, 
@@ -34,7 +33,6 @@ namespace AlphaSystem.Controllers
         staff_list sl3 ON main.approved_by = sl3.staff_id
         ";
     private readonly string devicesQueryEnd = "ORDER BY main.device_id;";
-
     private readonly string historyQuery = @"
     SELECT history_id, action, description, device_id, action_date, sl.first_name AS operator
     FROM device_history dh
@@ -53,8 +51,6 @@ namespace AlphaSystem.Controllers
     public IEnumerable<DeviceDTO> GetDevices()
     {
       using var connection = new MySqlConnection(maxDb);
-      // var data = connection.GetAll<Device>();
-      // return data;
       var data = connection.Query<DeviceDTO>(devicesQueryHead + devicesQueryEnd);
       return data;
     }

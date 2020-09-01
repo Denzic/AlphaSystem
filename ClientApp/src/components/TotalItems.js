@@ -10,6 +10,8 @@ const TotalItems = () => {
   const [devices, setDevices] = useState([])
   const [filtered, setFiltered] = useState([])
   const [searchString, setSearchString] = useState("")
+
+  // For pagenation
   const [currentPage, setCurrentPage] = useState(1)
   const [devicePerPage] = useState([15])
 
@@ -17,14 +19,17 @@ const TotalItems = () => {
     getDevices(setDevices)
   }, [])
 
+  // calculate devices for current page
   const getCurrentDevices = items => {
     let indexLast = currentPage * devicePerPage
     let indexFirst = indexLast - devicePerPage
     let currentDevices = items.slice(indexFirst, indexLast)
     return currentDevices
   }
+  // change current page onClick
   const paginate = n => setCurrentPage(n)
 
+  //
   const renderDevices = items => {
     const collection = getCurrentDevices(items)
     return collection.map((d, index) => (
@@ -46,6 +51,7 @@ const TotalItems = () => {
       <h1>Total Items</h1>
       <Link to='./AddItem'>Add Item +</Link>
 
+      {/* Table head with search box */}
       <Table>
         <thead>
           <tr>
@@ -109,12 +115,15 @@ const TotalItems = () => {
             <th></th>
           </tr>
         </thead>
+
+        {/* Render devices */}
         <tbody>
           {searchString === ""
             ? renderDevices(devices)
             : renderDevices(filtered)}
         </tbody>
       </Table>
+
       <PaginationComp
         itemPerPage={devicePerPage}
         totalItems={searchString === "" ? devices.length : filtered.length}

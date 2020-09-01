@@ -4,6 +4,7 @@ import { Pagination, PaginationItem, PaginationLink } from "reactstrap"
 const PaginationComp = ({ itemPerPage, totalItems, paginate }) => {
   const pageNumeber = []
 
+  // Calculate pages
   for (let i = 1; i <= Math.ceil(totalItems / itemPerPage); i++) {
     pageNumeber.push(i)
   }

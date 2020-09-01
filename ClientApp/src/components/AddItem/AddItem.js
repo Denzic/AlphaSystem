@@ -1,10 +1,9 @@
 import React, { useContext, useState, useEffect } from "react"
 import { Row, Col, Button, Form, Input, Label } from "reactstrap"
-import FormRow from "./FormRow"
+import FormRow from "../FormGenerator/FormRow"
 import { FormContext } from "../Context/FormContext"
 import { getStaffs, post } from "../APIOperations/HTTPOperations"
 import { processDataToBack } from "../APIOperations/ProcessData"
-import { handleChange } from "../APIOperations/Operations"
 
 const AddItem = () => {
   const rowNumber = [1, 2, 3, 4, 5, 6]
@@ -24,6 +23,7 @@ const AddItem = () => {
       post(processeData)
     }
     setFormData({})
+    console.log(formData)
   }
 
   const batchInput = e => {
@@ -65,8 +65,3 @@ const AddItem = () => {
 }
 
 export default AddItem
-
-// const checkDate = value =>
-//   value.match(/([1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/)
-//     ? value
-//     : false

@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react"
 import { Row, Button, Form, Label, Col } from "reactstrap"
-import FormRow from "../AddItem/FormRow"
+import FormRow from "../FormGenerator/FormRow"
 import { FormContext } from "../Context/FormContext"
 import { getDevice, update, getStaffs } from "../APIOperations/HTTPOperations"
 import { formatDate } from "../APIOperations/Operations"

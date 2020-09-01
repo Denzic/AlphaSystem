@@ -38,7 +38,6 @@ const EditHistory = ({
     )
     const processedData = processHistoryData(currentHistory, staffs)
     updateHistory(processedData)
-    setCurrentHistory({})
   }
 
   return (

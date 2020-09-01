@@ -8,13 +8,15 @@ export const processToDisplay = (data, type) => {
 }
 
 export const processDataToBack = (formData, staffs) => {
+  const propName = ["order_staff", "for_staff", "approved_by"]
+  propName.forEach(name => {
+    if (formData[name]) formData[name] = nameToId(formData[name], staffs)
+  })
+  for (var [key, value] of Object.entries(formData)) {
+    if (value === null || value === "" || value === undefined)
+      delete formData[key]
+  }
   if (formData["price"]) formData["price"] = parseInt(formData["price"]) || 0
-  if (formData["order_staff"])
-    formData["order_staff"] = nameToId(formData["order_staff"], staffs)
-  if (formData["for_staff"])
-    formData["for_staff"] = nameToId(formData["for_staff"], staffs)
-  if (formData["approved_by"])
-    formData["approved_by"] = nameToId(formData["approved_by"], staffs)
   console.log(formData)
   return formData
 }
