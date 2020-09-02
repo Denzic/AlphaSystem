@@ -24,7 +24,6 @@ const AddItem = () => {
     for (let i = 0; i < numberOfbatch; i++) {
       post(processeData)
     }
-    setFormData({})
     console.log(formData)
   }
 

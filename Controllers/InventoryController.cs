@@ -16,12 +16,12 @@ namespace AlphaSystem.Controllers
   public class InventoryController : ControllerBase
   {
     private readonly ILogger<InventoryController> _logger;
-    private readonly string maxDb = "Server=localhost;Database=max_devices;Uid=root;Password=op930917;";
+    private readonly string maxDb = "Server=localhost;Database=max_devices;Uid=root;Password=Cf222222;";
     private readonly string devicesQueryHead = @"
     SELECT
       device_id, type, brand, original_feature, order_date, deliver_date, 
       order_website, order_reason, price, currency, invoice_no, sl3.first_name AS approved_by, 
-      location_no, locate_staff, device_ip, access_type, stock_amount, memo, device_name, 
+      location_no, locate_staff, device_ip, access_type, stock_amount, memo, device_name, device_number,
       sl1.first_name AS order_staff, sl2.first_name AS for_staff
     FROM
         device_main main
