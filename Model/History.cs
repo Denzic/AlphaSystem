@@ -12,5 +12,6 @@ namespace AlphaSystem
     public string Description { get; set; }
     public int Device_id { get; set; }
     public int Operator { get; set; }
+    public int Staff_id { get; set; }
   }
 }

@@ -6,6 +6,7 @@ import { formatDate } from "./APIOperations/Operations"
 import PaginationComp from "./PaginationComp"
 import SearchBox from "./SearchBox/SearchBox"
 
+// define hooks
 const TotalItems = () => {
   const [devices, setDevices] = useState([])
   const [filtered, setFiltered] = useState([])
@@ -17,14 +18,14 @@ const TotalItems = () => {
     getDevices(setDevices)
   }, [])
 
-  // calculate devices for current page
+  // pagenation: calculate number of devices for current page
   const getCurrentDevices = items => {
     let indexLast = currentPage * devicePerPage
     let indexFirst = indexLast - devicePerPage
     let currentDevices = items.slice(indexFirst, indexLast)
     return currentDevices
   }
-  // change current page
+  // change current page number
   const paginate = n => setCurrentPage(n)
 
   const renderDevices = items => {
@@ -53,7 +54,7 @@ const TotalItems = () => {
           <tr>
             <th>#</th>
             <th>
-              {/* Table head with search box */}
+              {/* Table headers with search box */}
               <Row>
                 <Col md={4}>Name</Col>
                 <Col md={5}>

@@ -16,7 +16,8 @@ namespace AlphaSystem.Controllers
   public class InventoryController : ControllerBase
   {
     private readonly ILogger<InventoryController> _logger;
-    private readonly string maxDb = "Server=localhost;Database=max_devices;Uid=root;Password=Cf222222;";
+    private readonly IConfiguration _config;
+    private readonly string maxDb = "";
     private readonly string devicesQueryHead = @"
     SELECT
       device_id, type, brand, original_feature, order_date, deliver_date, 
@@ -42,9 +43,11 @@ namespace AlphaSystem.Controllers
     Order By history_id;
     ";
 
-    public InventoryController(ILogger<InventoryController> logger)
+    public InventoryController(ILogger<InventoryController> logger, IConfiguration config)
     {
       _logger = logger;
+      _config = config;
+      maxDb = _config.GetValue<string>("ConnectionString:sqlConnection");
     }
 
     [HttpGet("devices")]
