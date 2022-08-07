@@ -186,5 +186,5 @@ App.js is the entrance of the app
 
 ## Contact
 
-Dean Wang - [Email](denzicw@gmail.com)
+Dean Wang - [Email](denzicw@gmail.com)<br>
 Project Link: [https://github.com/your_username/repo_name](https://github.com/Denzic/AlphaSystem)
